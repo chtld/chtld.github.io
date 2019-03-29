@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+  
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="author" content="董沅鑫, yuanxin.me@gmail.com">
+  
+  
+  
+  <title>常微分方程笔记(1) | 甚远</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="技术,微分方程,">
+  
+
+  <script>
+    console.log('\n%c Hexo-theme-bmw v4.0 ' + '%c 🎉 https://github.com/dongyuanxin/theme-bmw 🎉\n' + '\n%c View demo online ' + '%c 🔍 https://godbmw.com/ 🔍  \n' , 'color: #fadfa3; background: #030307; padding:3px 0;', '', 'color: #fadfa3; background: #030307; padding:3px 0;', '');
+  </script>
+
+  
+    <meta name="description" content="上善若水, 人生归元!">
+  
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/icon/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+
+  <script src="/js/util.js"></script>
+<script src="/js/valine.min.js"></script>
+
+  
+
+  
+    <link href="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.js" async></script>
+  
+
+  
+  
+  <script src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js" async></script>
+  
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.0/dist/av-min.js"></script>
+  
+
+</head>
+
+  <body>
+
+    
+
+    <div id="app">
+
+      <div class="header-wrap">
+  <header>
+    <div class="site-brand">
+      <div class="site-title">
+        <a href="/">上善若水, 人生归元!</a>
+      </div>
+    </div>
+    <nav class="site-navigation">
+      <ul class="nav-menu">
+      
+        <li class="nav-item" data-path="/">
+          
+            <a href="/" target="_self">
+              主页
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          
+            <a href="/archives/" target="_self">
+              归档
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path="/categories/">
+          
+            <a href="/categories/" target="_self">
+              分类
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          
+            <a href="/tags/" target="_self">
+              标签
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          
+            <a href="/friends/" target="_self">
+              友链
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          
+            <a href="/about/" target="_self">
+              关于
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path>
+          
+            <a href="javascript:void(0);" v-else>抓到我</a>
+            <ul class="nav-menu--dropdown">
+              
+                <li>
+                  <a href="https://github.com/chtld" target="_blank">
+                    Github
+                  </a>
+                </li>
+              
+                <li>
+                  <a href="https://www.zhihu.com/people/shen-yuan-77-42/activities" target="_blank">
+                    知乎
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+      </ul>
+    </nav>
+    <i class="iconfont icon-menu"></i>
+  </header>
+</div>
+
+<script>
+  let links = document.querySelectorAll('.nav-item');
+  for(let link of links){
+    let childrenLink = link.querySelector('ul');
+    link.addEventListener('mouseenter', () => {
+      if(childrenLink) {
+        childrenLink.className = "nav-menu--dropdown active";
+      }
+    })
+    link.addEventListener('mouseleave', () => {
+      if(childrenLink) {
+        childrenLink.className = "nav-menu--dropdown";
+      }
+    })
+  }
+  let rootRealPath = getRealPath(window.location.pathname, true);
+  for(let link of links) {
+    let linkPath = link.getAttribute("data-path");
+    if(linkPath && getRealPath(linkPath, true) === rootRealPath) {
+      link.className = "nav-item hover";
+    }
+  }
+
+  let iconMenu = document.querySelector("i.iconfont.icon-menu"),
+    iconMenuClicked = false;
+  let navDOM = document.querySelector("nav.site-navigation");
+  iconMenu.addEventListener("click", () => {
+    iconMenuClicked 
+      ? navDOM.className = "site-navigation active"
+      : navDOM.className = "site-navigation";
+    iconMenuClicked = !iconMenuClicked;
+  })
+</script>
+
+      
+
+
+
+
+
+
+
+
+<div class="container post-index">
+
+  
+
+<div class="post">
+  <h1 class="article-title">
+    <span>常微分方程笔记(1)</span>
+  </h1>
+  <div class="article-top-meta">
+    <span>
+      发布 : 
+      2018-10-26
+    </span>
+    
+      <span>
+        分类 : 
+          <a href="/categories/技术/">
+            技术
+          </a>
+      </span>
+    
+    
+      <span>
+        浏览 : <span class="article-timer" data-identity="2018-10-26-常微分方程笔记(1)"></span>
+      </span>
+    
+  </div>
+
+  
+
+  <div class="article-content">
+    <div class="markdown-body">
+      <p></p>
+<h4 id="一-Recall-Fundamental-Theorem-of-Calculus-FTC"><a href="#一-Recall-Fundamental-Theorem-of-Calculus-FTC" class="headerlink" title="一. Recall Fundamental Theorem of Calculus(FTC)"></a>一. Recall Fundamental Theorem of Calculus(FTC)</h4><ol>
+<li><p>由$f(x)$来找到其原函数(反导函数)</p>
+<script type="math/tex; mode=display">F(x) = \int_a^xf(t)dt \Rightarrow F'(x) = f(x)</script></li>
+<li><p>利用任一$f(x)$的反导函数计算$f(x)$之定积分</p>
+<script type="math/tex; mode=display">\int_a^bf(x)dx = F(b) - F(a)</script><p>微积分基本定理反映了导函数与其反导函数之间的关系。那么我们提出的问题是$F(x)$与$f(x)$之间有没有什么类似与代数方程式的关系？<br>考虑$f(x),F(x)$,令$X = f(x), Y = F(x)$,视$X,Y$为代数，则$X,Y$之代数方程式就是$F(x)$的微分方程式。</p>
+</li>
+</ol>
+<ul>
+<li><p>例如，$u(x)$满足$\dot{u}(x) = u(x)$, 一个函数的导函数是他本身，其解$u(x) = e^x + c$. There are infinitely many solutions. $u(x) = ae^x + c$也是它的解。<br>实际生活中观察的现象只有一种，多解现象不太容易发生，所以希望有唯一解，因此需要加入其他条件。</p>
+</li>
+<li><script type="math/tex; mode=display">\begin{cases}
+u'(x) = u(x)\\
+u(0) = A\\
+\end{cases}</script><p>实际问题变化因素有很多，在什么时间，什么位置，初始的状态是什么，所以方程有很多。有很多种类的方程刻画不同的现象。</p>
+</li>
+</ul>
+<h4 id="二-Big-Picture"><a href="#二-Big-Picture" class="headerlink" title="二. Big Picture"></a>二. Big Picture</h4><p>for ODE</p>
+<ol>
+<li>应用问题.</li>
+<li>导出其数学模式(math model).</li>
+<li>分析此数学模式<ul>
+<li>质：解的性质，qualitative analysis.</li>
+<li>量：正确解, quantative analysis.</li>
+</ul>
+</li>
+<li>此数学模式是否是正确的，well-posed.<ul>
+<li>解之存在(existence)</li>
+<li>解之唯一性(uniqueness), 观察到的现象只有一个</li>
+<li>continuity，稳定性，初始条件差不多，观察到的现象应该也差不多</li>
+<li>不满足上面的问题称为ill-posed的问题，初始条件差不多，结果却相差很大，蝴蝶效应，混沌现象.</li>
+</ul>
+</li>
+<li>back to practical problem.<br>从简单到复杂，从已知到未知。</li>
+</ol>
+<h4 id="三-Some-notations-and-some-terminology-to-simplify-our-analysis"><a href="#三-Some-notations-and-some-terminology-to-simplify-our-analysis" class="headerlink" title="三. Some notations and some terminology to simplify our analysis"></a>三. Some notations and some terminology to simplify our analysis</h4><script type="math/tex; mode=display">x\rightarrow f(x)</script><script type="math/tex; mode=display">x\rightarrow f'(x)</script><p>$f\rightarrow f’$, functional, operator<br>from now on:<br>t: independent variable<br>y(t)<br>$y\rightarrow y’$, 微分算子<br>Example for operators：</p>
+<ul>
+<li>$y\rightarrow y’+y$<br>$L = \frac{d}{dt}+I$</li>
+<li>$y’(t) + (t^2 - s)y(t)$<br>$L = \frac{d}{dt}+g(t)I$</li>
+</ul>
+<h4 id="四-一阶微分算子与一阶微分方程"><a href="#四-一阶微分算子与一阶微分方程" class="headerlink" title="四. 一阶微分算子与一阶微分方程"></a>四. 一阶微分算子与一阶微分方程</h4><p>first order 方程式 $L[y] = b(t)$<br>first order means 只能包括$y,y’$<br>linear means 只能包括$y,y’$的一次方,eg. $L[y] = t(y’)^{1/2} + 5y$ is nonlinear<br>$L[y] = A(t)y’ + B(t)y=A(t)[y’ + \frac{B(t)}{A(t)}y] = A(t)[y’ + g(t)y]$<br>Now, a 1st order linear ode has the form<br>$L[y] = b(t)$, where $L[y] = y’ + g(t)y = b(t)$<br>maybe written as<br>$y’(t) = a(t)y(t) + b(t)$.<br>线性化的关键：<br>linearity of 充要条件<br>Given any two constants p and q, then<br>$L[pu + qv] = pL[u] + qL[v]$<br>$u\rightarrow L[u]$<br>$v\rightarrow L[v]$<br>$pu+qv\rightarrow L[pu + qv] = ?$<br>$L[u] = u’ + g(t)u$<br>$L[pu + qv] = pu’ + pg(t)u + qv’ + qg(t)v = pL[u] + qL[v]$<br>Example for first order nonlinear equation:<br>$N[y] = (y’)^2+y$<br>$N[y+y^<em>]?=N[y]+N[y^</em>]$<br>we can obtain<br>$N[y+y^<em>]=(y’+y^{</em>‘})^2+y+y^<em>=N[y]+N[y’]+2y’y^{</em>‘}$</p>
+<h5 id="1st-order-linear-equation"><a href="#1st-order-linear-equation" class="headerlink" title="1st order linear equation"></a>1st order linear equation</h5><ul>
+<li>$b(t)=0,L[y]=y’+g(t)y=0,or,y’=a(t)y$,named as 1st order,homogeneous linear equation</li>
+<li>$b(t)\neq 0,L[y]=y’+g(t)y=b(t),or,y’=a(t)y+b(t)$,named as 1st order,non-homogeneous linear equation<br>About homogeneous equation:<br>(1) 有何特质？<br>(2) 如何解？(existence of solutions)隐含着所有解之问题。<br>$L[y] = y + a(t)y=0$<br>(A) Linear Principle<br>任意两个解相加减仍是原方程的解。若$L[y_1] = 0,L[y_2] = 0$,then $L[y_1+y_2] = 0,L[ky_1] = 0.$<br>对于非齐次的情况则不成立，若$L[y_1] = b(t),L[y_2] = b(t)$,then $L[y_1+y_2] = 2b(t) \neq b(t)$<h4 id="五-一阶微分方程解之技巧"><a href="#五-一阶微分方程解之技巧" class="headerlink" title="五. 一阶微分方程解之技巧"></a>五. 一阶微分方程解之技巧</h4></li>
+<li><script type="math/tex; mode=display">L[y] = y' + g(t)y = 0, y' = a(t)y</script><script type="math/tex; mode=display">\frac{dy}{dt} = a(t)y</script><script type="math/tex; mode=display">\frac{dy}{y} = a(t)dt</script><script type="math/tex; mode=display">\int\frac{dy}{y}=\int a(t)dt \Rightarrow ln|y|+c = \int a(t)dt</script><script type="math/tex; mode=display">e^{ln|y|+c} = e^{\int a(t)dt}</script>then we will obtain</li>
+</ul>
+<script type="math/tex; mode=display">|y| = e^{-c}e^{\int a(t)dt} = ke^{\int a(t)dt}</script><p>since $|y|\neq 0$ and $y$ is continuous, so either $y(t)&gt;0$ or $y(t)<0$对所有的t都成立. if $y>0$, $y = ke^{\int a(t)dt}$, if $y&lt;0$, $y = -ke^{\int a(t)dt}$.<br>If $y = ke^{\int a(t)dt}$, for any k, then $L[y] = 0$, 即 $y’ = a(t)y$.<br>Here, we found that if $L[y] = 0$, then all solutions $y(t) = ke^{A(t)}$, where $A(t)$ a particular anti-derive of $a(t)$.<br>A concrete example:<br>$y’ = cos(t)y$,here $a(t) = cos(t)$, $A(t) = sin(t)$, then the general solution $y(t) = k e^{sin(t)}$, for any k.</0$对所有的t都成立.></p>
+<ul>
+<li>$L[y] = b(t)$(non-homogeneous), or $y’ = a(t)y + b(t)$.<br>Recall “Linear Principle” is true for homogeneous equation, now , extended linearity principle for non-homogeneous equation.<br>If $L[y_1] = b(t)$ and $L[y_2] = b(t)$, then<br>(1) $L[y_h + y_1] = b(t)$, where $y_h$ satisfies $L[y_h]=0$.<br>(2) $L[y_1-y_2] = 0$.<br>the fact, from (1), (2),$\Rightarrow$ the general solution of $L[y] = b(t)$ are $y_h+y_1$.<br>proof:<br>(1) $L[y_h + y_1] = L[y_h] + L[y_1] = b(t)$.<br>(2) $L[y_1 - y_2] = L[y_1] - L[y_2] = 0$.<br>Suppose y_h and y_2 are two solutions of $L[y] = b(t).$, then by (2), $y_1-y_2$ is a solution, say $y_h(t)$ of $L[y]=0$,$y_1 = y_h(t) + y_2$, 即$y_h(t) + y_p(t)$ is a general solution of $L[y] = b(t)$.</li>
+</ul>
+    </div>
+  </div>
+  
+    <div class="copy-right">
+      <div class="markdown-body">
+        <blockquote>
+        
+        
+          本文作者 : CHTLD <br>
+        
+        原文链接 : <a href>http://yoursite.com/2018/10/26/2018-10-26-常微分方程笔记(1)/</a><br>
+        版权声明 : 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+        </blockquote>
+      </div>
+    </div>
+  
+  
+  
+
+  
+    <div id="reward">
+  
+    <p id="reward-meta">知识 & 情怀 | 二者兼得</p>
+  
+  <button id="reward-btn">
+    
+    <span>投食</span>
+  </button>
+  <div id="reward-qrcode">
+    
+      <div class="reward-qrcode--container">
+        <img class="qrcode-img" src="/images/wechat.png" alt="微信扫一扫, 向我投食">
+        <p class="qrcode-meta">微信扫一扫, 向我投食</p>
+      </div>
+    
+      <div class="reward-qrcode--container">
+        <img class="qrcode-img" src="/images/alipay.png" alt="支付宝扫一扫, 向我投食">
+        <p class="qrcode-meta">支付宝扫一扫, 向我投食</p>
+      </div>
+    
+  </div>
+
+</div>
+
+<script>
+  (() => {
+    let button = document.querySelector('#reward-btn'),
+      qrcode = document.querySelector('#reward-qrcode'),
+      display = false;
+    
+    button.addEventListener('click', () => {
+      qrcode.style.display = display ? 'none' : 'block'
+      display = !display
+    }, false)
+  })()
+</script>
+  
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+      <span>
+        
+          <i class="iconfont icon-06tags"></i>标签: 
+          
+          <span class="span--tag">
+            <a href="/tags/微分方程/">
+              #微分方程
+            </a>
+          </span>
+          
+        
+      </span>
+    </div>
+    <div class="article-meta pull-right">
+    </div>
+  </div>
+</div>
+
+
+  <aside id="sidebar">
+    <p id="sidebar-header"></p>
+    <ol id="sidebar-toc"></ol>
+  </aside>
+  <script async>setTimeout(generateToc, 10);</script>
+
+
+  <nav class="post-navigation">
+    
+      <div class="nav-pre">
+        <i class="iconfont icon-prev"></i>
+        上一篇:
+        <a href="/2018/10/25/2018-10-25-windows10开启linux子系统WSL/" target="_self">windows10开启linux子系统WSL</a>
+      </div>
+    
+    
+      <div class="nav-next">
+        下一篇:
+        <a href="/2018/12/14/2018-12-14-Peridynamic-Theory-of-Solid-Mechanics/" target="_self">Peridynamic-Theory-of-Solid-Mechanics</a>
+        <i class="iconfont icon-next"></i>
+      </div>
+    
+  </nav>
+
+  
+    <a href="#comment" class="comment-anchor"></a>
+<div class="comment-title"><i class="iconfont icon-footprint"></i> 留下足迹 <i class="iconfont icon-footprint"></i></div>
+<div id="vcomments"></div>
+
+<script defer>
+  if( true ) {
+    let path = getRealPath()
+    new Valine({
+      el: "#vcomments",
+      appId: "Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz",
+      appKey: "WaR7nrzhliHj9aVwdQzkdlGd",
+      notify: false,
+      verify: false,
+      avatar: "robohash",
+      placeholder: "正确填写邮箱, 才能及时收到回复哦♪(^∇^*)",
+      path
+    });
+  }
+</script>
+   
+
+  
+    <script defer>
+const valineAPI = (() => {
+  try {
+    AV.init("Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz", "WaR7nrzhliHj9aVwdQzkdlGd");
+  } catch(error) {}
+  const isExist = (identity) => {
+    identity = identity || getRealPath();
+    let query = new AV.Query('Timer');
+    return new Promise((resolve, reject) => {
+      query.equalTo("identity", identity);
+      query.find().then(results => {
+        resolve(results.length > 0);
+      }, error => reject(error));
+    })
+  }
+
+  const _get = (identity) => {
+    let query = null;
+    if(identity && identity instanceof Array){
+      let querys = [];
+      for(let i = 0; i < identity.length; ++i) {
+        querys[i] = new AV.Query('Timer');
+        querys[i].equalTo('identity', identity[i]);
+      }
+      query = AV.Query.or.apply(null ,querys);
+    } else {
+      identity = identity || getRealPath();
+      query = new AV.Query("Timer");
+      query.equalTo("identity", identity);
+    }
+
+    return new Promise((resolve, reject) => {
+      query.find()
+      .then(results => resolve(results))
+      .catch(error => reject(error))
+    })
+  }
+
+  const create = (identity) => {
+    identity = identity || getRealPath();
+    return new Promise((resolve, reject) => {
+      let Todo = AV.Object.extend('Timer');
+      let todo = new Todo();
+      todo.set("times", 1);
+      todo.set("identity", identity);
+      todo.save().then(res => resolve(true), error => reject(error));
+    })
+  }
+
+  const update = (identity) => {
+    identity = identity || getRealPath();
+    return new Promise((resolve, reject) => {
+      let query = new AV.Query('Timer');
+      query.equalTo("identity", identity);
+      query.find().then(todos => {
+        todos.forEach(todo => {
+          todo.set("times", todo.attributes.times + 1);
+        });
+        return AV.Object.saveAll(todos);
+      }).then(todos => resolve(true), error => reject(error));
+    })
+  }
+
+  return {
+    isExist,
+    _get,
+    update,
+    create
+  }
+})()
+
+const calcAndWriteTimes = () => {
+  let isPost = true;
+
+  let timerAllDOM = document.querySelectorAll(".article-timer");
+
+  if(isPost) {
+    let identity = timerAllDOM[0].getAttribute("data-identity");
+    valineAPI.isExist(identity)
+    .then(exist => {
+      if(exist) {
+        return valineAPI.update(identity);
+      }
+      return new Promise(resolve => resolve(true));
+    })
+    .then( succuess => valineAPI._get(identity))
+    .then( result => timerAllDOM[0].innerText = result[0].attributes.times)
+    .catch(error => console.log(error.message))
+    return ;
+  }
+
+  let timerDOMCache = {};
+
+  for(let timerDOM of timerAllDOM) {
+    let identity = timerDOM.getAttribute("data-identity");
+    if(timerDOMCache.hasOwnProperty(identity)){
+      timerDOMCache[identity].dom.push(timerDOM);
+    }else{
+      timerDOMCache[identity] = {
+        dom: [timerDOM],
+        times: undefined
+      };
+    }
+  }
+
+  let identities = Object.keys(timerDOMCache);
+  valineAPI._get(identities).then(results => {
+    for(let result of results) {
+      let {identity, times} = result.attributes;
+      timerDOMCache[identity].times = times;
+      timerDOMCache[identity].dom.map(item => item.innerText = times);
+    }
+    for(let identity of identities) {
+      if(timerDOMCache[identity].times){
+        continue;
+      }
+      timerDOMCache[identity].dom.map(item => item.innerText = 1);
+      valineAPI.create(identity);
+    }
+  }).catch(error => console.log(error.message))
+}
+
+if(true){
+  calcAndWriteTimes();
+}
+</script>
+   
+
+</div>
+
+
+      <footer>
+  <p class="site-info">
+    博客已萌萌哒运行<span id="time-to-now"></span><span class="my-face">(●'◡'●)ﾉ♥</span>
+    <br>
+    Theme - <a href="https://github.com/dongyuanxin/theme-bmw">BMW</a> | Made With 💗 | Powered by <a href="https://godbmw.com/">GodBMW</a>
+    <br>
+    
+  </p>
+</footer>
+
+
+
+<script>
+const timeToNowDOM = document.querySelector("#time-to-now");
+const startTimestamp = new Date(2018, 2, 1).getTime();
+
+const updateTimeStr = () => {
+  let offset = parseInt(
+      (new Date().getTime() - startTimestamp) / 1000,
+      10
+    ),
+    day = Math.floor(offset / 86400),
+    hour = Math.floor((offset % 86400) / 3600),
+    minute = Math.floor(((offset % 86400) % 3600) / 60),
+    second = Math.floor(((offset % 86400) % 3600) % 60);
+  timeToNowDOM.innerHTML =
+    day + "天" + hour + "小时" + minute + "分钟" + second + "秒";
+  setTimeout(updateTimeStr, 500);
+}
+
+setTimeout(updateTimeStr, 500);
+</script>
+
+
+      <div class="back-to-top hidden">
+  <span>
+    <i class="iconfont icon-60"></i><span></span>%
+  </span>
+</div>
+
+<script>
+const updateIconToTop = percent => {
+  let dom = document.querySelector(".back-to-top span span");
+  dom.innerText = percent;
+  if(percent < 1) {
+    document.querySelector(".back-to-top").className = "back-to-top hidden";
+  } else {
+    document.querySelector(".back-to-top").className = "back-to-top";
+  }
+}
+
+const handleScoll = () => {
+  let isRunning = false;
+  return () => {
+    if (isRunning) return;
+    isRunning = true;
+    window.requestAnimationFrame(timestamp => {
+      let scrollTop =
+          document.documentElement.scrollTop || document.body.scrollTop,
+        scrollHeight =
+          document.documentElement.scrollHeight ||
+          document.body.scrollHeight,
+        clientHeight =
+          document.documentElement.clientHeight ||
+          document.body.clientHeight;
+      isRunning = false;
+      if (scrollTop <= 1) {
+        updateIconToTop(0);
+        return;
+      }
+      if (scrollTop + clientHeight >= scrollHeight) {
+        updateIconToTop(100);
+      } else {
+        updateIconToTop(parseInt(
+          100 * scrollTop / (scrollHeight - clientHeight),
+          10
+        ));
+      }
+    });
+  };
+}
+
+const backToTop = () => {
+  let scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop,
+    delay = 10,
+    time = 200;
+  if (scrollTop <= 20) {
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    return;
+  }
+  let step = Math.ceil(scrollTop * delay / time);
+  let timer = setInterval(() => {
+    scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop;
+    if (scrollTop - step <= 0) {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      clearInterval(timer);
+    } else {
+      document.documentElement.scrollTop = scrollTop - step;
+      document.body.scrollTop = scrollTop - step;
+    }
+  }, delay);
+}
+
+document.addEventListener("scroll", handleScoll(), false);
+
+document.querySelector(".back-to-top").addEventListener("click", backToTop, false);
+
+</script>
+
+    </div>
+
+    
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script>
+  (() => {
+    const mathjaxConfig = {
+      showProcessingMessages: false, //关闭js加载过程信息
+      messageStyle: "none", //不显示信息
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [["$", "$"], ["\\(", "\\)"]], //行内公式选择符
+        displayMath: [["$$", "$$"], ["\\[", "\\]"]], //段内公式选择符
+        skipTags: ["script", "noscript", "style", "textarea", "pre", "code", "a"] //避开某些标签
+      },
+      "HTML-CSS": {
+        availableFonts: ["STIX", "TeX"], //可选字体
+        showMathMenu: false //关闭右击菜单显示
+      }
+    }
+
+    let mathjaxInterval = setInterval(() => {
+      if(!window.MathJax){
+        return;
+      }
+      window.MathJax.Hub.Config(mathjaxConfig)
+      window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById('app')])
+
+      clearInterval(mathjaxInterval)
+    }, 10)    
+  })()
+</script>
+    
+
+    <script src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script>
+<script async>
+  let fancyTimer = setInterval(function(){
+    if(!window.$){
+      return;
+    }
+    $(document).ready(function() {
+      $(".post img").each(function () {
+        if($(this).parent().get(0).tagName.toLowerCase() === "a") {
+          return;
+        }
+        // $(this).attr("data-fancybox", "gallery"); // if you add 'data-fancybox', img will display after showed
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "gallery");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      });
+      
+      clearInterval(fancyTimer);
+    });
+  }, 10);
+</script>
+
+    
+      
+         
+          <script src="/custom/script.js"  async  ></script>
+        
+      
+    
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+
+</html>

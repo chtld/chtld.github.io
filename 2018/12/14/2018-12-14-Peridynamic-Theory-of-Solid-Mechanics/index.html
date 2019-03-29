@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+  
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="author" content="董沅鑫, yuanxin.me@gmail.com">
+  
+  
+  
+  <title>Peridynamic-Theory-of-Solid-Mechanics | 甚远</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="peridynamic,peridynamics,">
+  
+
+  <script>
+    console.log('\n%c Hexo-theme-bmw v4.0 ' + '%c 🎉 https://github.com/dongyuanxin/theme-bmw 🎉\n' + '\n%c View demo online ' + '%c 🔍 https://godbmw.com/ 🔍  \n' , 'color: #fadfa3; background: #030307; padding:3px 0;', '', 'color: #fadfa3; background: #030307; padding:3px 0;', '');
+  </script>
+
+  
+    <meta name="description" content="上善若水, 人生归元!">
+  
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/icon/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+
+  <script src="/js/util.js"></script>
+<script src="/js/valine.min.js"></script>
+
+  
+
+  
+    <link href="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.js" async></script>
+  
+
+  
+  
+  <script src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js" async></script>
+  
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.0/dist/av-min.js"></script>
+  
+
+</head>
+
+  <body>
+
+    
+
+    <div id="app">
+
+      <div class="header-wrap">
+  <header>
+    <div class="site-brand">
+      <div class="site-title">
+        <a href="/">上善若水, 人生归元!</a>
+      </div>
+    </div>
+    <nav class="site-navigation">
+      <ul class="nav-menu">
+      
+        <li class="nav-item" data-path="/">
+          
+            <a href="/" target="_self">
+              主页
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          
+            <a href="/archives/" target="_self">
+              归档
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path="/categories/">
+          
+            <a href="/categories/" target="_self">
+              分类
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          
+            <a href="/tags/" target="_self">
+              标签
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          
+            <a href="/friends/" target="_self">
+              友链
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          
+            <a href="/about/" target="_self">
+              关于
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path>
+          
+            <a href="javascript:void(0);" v-else>抓到我</a>
+            <ul class="nav-menu--dropdown">
+              
+                <li>
+                  <a href="https://github.com/chtld" target="_blank">
+                    Github
+                  </a>
+                </li>
+              
+                <li>
+                  <a href="https://www.zhihu.com/people/shen-yuan-77-42/activities" target="_blank">
+                    知乎
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+      </ul>
+    </nav>
+    <i class="iconfont icon-menu"></i>
+  </header>
+</div>
+
+<script>
+  let links = document.querySelectorAll('.nav-item');
+  for(let link of links){
+    let childrenLink = link.querySelector('ul');
+    link.addEventListener('mouseenter', () => {
+      if(childrenLink) {
+        childrenLink.className = "nav-menu--dropdown active";
+      }
+    })
+    link.addEventListener('mouseleave', () => {
+      if(childrenLink) {
+        childrenLink.className = "nav-menu--dropdown";
+      }
+    })
+  }
+  let rootRealPath = getRealPath(window.location.pathname, true);
+  for(let link of links) {
+    let linkPath = link.getAttribute("data-path");
+    if(linkPath && getRealPath(linkPath, true) === rootRealPath) {
+      link.className = "nav-item hover";
+    }
+  }
+
+  let iconMenu = document.querySelector("i.iconfont.icon-menu"),
+    iconMenuClicked = false;
+  let navDOM = document.querySelector("nav.site-navigation");
+  iconMenu.addEventListener("click", () => {
+    iconMenuClicked 
+      ? navDOM.className = "site-navigation active"
+      : navDOM.className = "site-navigation";
+    iconMenuClicked = !iconMenuClicked;
+  })
+</script>
+
+      
+
+
+
+
+
+
+
+
+<div class="container post-index">
+
+  
+
+<div class="post">
+  <h1 class="article-title">
+    <span>Peridynamic-Theory-of-Solid-Mechanics</span>
+  </h1>
+  <div class="article-top-meta">
+    <span>
+      发布 : 
+      2018-12-14
+    </span>
+    
+      <span>
+        分类 : 
+          <a href="/categories/peridynamic/">
+            peridynamic
+          </a>
+      </span>
+    
+    
+      <span>
+        浏览 : <span class="article-timer" data-identity="2018-12-14-Peridynamic-Theory-of-Solid-Mechanics"></span>
+      </span>
+    
+  </div>
+
+  
+
+  <div class="article-content">
+    <div class="markdown-body">
+      <p></p>
+<h3 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1.Introduction"></a>1.Introduction</h3><h4 id="1-1-近场动力学的目的"><a href="#1-1-近场动力学的目的" class="headerlink" title="1.1 近场动力学的目的"></a>1.1 近场动力学的目的</h4><p>近场动力学理论试图统一连续介质、断裂、离散粒子的的数学模型于一个单一的框架。该理论是通过把经典的固体力学中的偏微分方程替换为积分方程或积分微分方程来达到这一目的的。这些方程是基于用有限范围的物质点之间的相互作用来刻画物体的内力建立的。<br>固体力学的经典理论是基于物体内的质量是连续分布的这一假设。它进一步假设内力是接触力[73]。对固体的数学描述伴随着这些假设, 并且由于使用了偏微分方程的工具就额外假设了变形的光滑性，在强形式和弱形式中体现。经典理论已经被证实在真实的材料响应的直到小尺度时提供了一个很好的近似，尤其在单晶体中，满足这些假设[52]. 尽管如此，但是科技的增长涉及到了在更小的尺度下设备的设计和制造，甚至到了原子尺度。因此，研究经典理论能否放松连续性假设，允许包括离散粒子的模型(比如原子)，能否允许对非局部力的刻画(已知对材料的行为有很大的影响)。<br>类似的考虑应用到断裂和其他不连续问题上：经典理论的偏微分方程系统不能直接应用到一个裂纹或者是位错上，因为在这些点处的变形是不连续的。因此，断裂力学的技巧是介绍的关系是外来追加的到经典理论的场方程上的。例如，线弹性断裂力学考虑裂纹的发展是根据一个分离的本构模型依赖一些附近的条件来预测裂纹生长的多快？沿着什么方向？是否应该停止，分叉等等。尽管断裂力学的方法给许多应用提供了可靠的工具，但在什么程度上这个方法可以满足一般条件下复杂介质断裂刻画的需要是不确定的，尤其在小尺度下这个问题更加明显。类似的考虑也应用到位错动力学，位错的运动是由追加的关系确定的。<br>在线弹性断裂力学和位错动力学中，缺陷的生长除了需要补充的本构方程之外，经典力学在奇异点的的附近预测到了非物理的特征。无界的应力和应变能密度是经典偏微分方程系统在理想情况通过假设其影响限制在裂尖附近的发生区域或在位错的核心处预测得到的[38]。然而，当条件和几何非常复杂的时候，按这种方式忽视奇异性之后的推理就变得更加麻烦。例如，当位错核心移动的靠近或跨过颗粒边界，它的能量是不变的并不清楚。能量核心的任何变换会影响在位错上的驱动力。<br>分子动力学提供了一种在最小的尺度下理解材料的力学行为的方式，并在这些年取得了巨大的成功。然而，就算用最快的计算机，分子动力学也不能模拟相当尺寸的系统，来使得其成为连续介质力学可能的替代。<br>基于这些考虑就催动了近场动力学的产生，它尝试用与连续变形相同的场方程来处理间断的演化问题。近场动力学有着使用相同的场方程来处理离散粒子与连续介质的目标。这个模型用相同的数学系统来处理宏观尺度和纳米尺度的问题，使得这个方法在发展多尺度以及原子到连续介质的方法方面是一个具有吸引力的框架。  </p>
+<h4 id="1-2-Summary-of-the-Literature"><a href="#1-2-Summary-of-the-Literature" class="headerlink" title="1.2 Summary of the Literature"></a>1.2 Summary of the Literature</h4><p>近场动力学首先出现在文献[60]中，源于希腊词根 “near” 和 “force” 。在[60]中，这个模型把连续固体中的内力看做成对的相互作用网，类似于弹簧。在这方面它类似于 Navier 的固体理论(见第6节)。在近场动力学模型中，弹簧可以是非线性的。弹簧的响应取决于它们在参考构型中的方向(导致了各向异性)和它的长度。两个物质点通过一个弹簧相互作用的最大距离称之为近场半径(horizon), 一个点不能’看到’超过近场半径的点。近场半径在[60]中是反映材料性质的常数。在最初的近场动力学理论中提出的运动方程为</p>
+<script type="math/tex; mode=display">
+\rho(x)\ddot{u}(x,t) = \int_{\mathcal{H}}f(u(x',t)-u(x,t),x'-x)dV_{x'} + b(x,t)
+\tag{1}</script><p>其中$x$是物体$\mathcal{B}$的参考构型中的位置向量，$\rho$ 是密度，$u$ 是位移，$b$ 是体力密度. $\mathcal{H}$ 是 $x$ 的 $\delta$ 邻域，$\delta$ 是材料的近场半径。本构关系是由对力函数 $f(\eta,\xi)$ ($\xi = x’-x$ 是键，$\eta = u’-u$ 是相对位移)。$f$ 可以非线性的依赖于 $\eta$ ，而且没有假设参考构型中的键力是 0。$f$ 的单位是 $N/m^2$. 线性化运动方程得到的表达式形式上与 Kunin’s 的非局部理论[46,47]相同, 尽管本构模型和其他层面是不同的，两个模型的比较在 6.5 节中讨论.<br>已经有大量的文章对线性近场动力学的不同方面进行了研究。在文献[70]中考虑了一个无限长的杆的静力载荷. 得到的解(使用了傅里叶变换得到的)展示了有趣的特征，而这并没有在经典平衡方程中出现。其中振幅在远离载荷的地方衰减，是方程中非局部性的结果（这些特征的物理意义并不明确）. [60]中导出了各向同性材料的色散曲线、变分形式以及材料稳定性的一些方面。Zimmermann[80] 探究了理论的许多特征，包括波运动、材料的稳定性以及数值解的技巧等。Zimmermann 也研究了在这个理论下断裂生长的能量守恒。<br>Weckner 和 Abeyaratne [75] 研究了一维杆的动力学并且得到了解得格林函数表示。他们同时位移场间断点演化的表达式。稳定的间断点(即，间断点不随着时间无限增长)在一定的初始数据下出现，甚至伴随着材料性质的良好表现。对其他材料，间断点随着时间无限增长，导致了材料的不稳定性。对于三维无界弹性各向同性固体的格林函数在[77]中考虑(对静力学和动力学问题)。这个工作同时也对线弹性固体的局部和近场动力学理论做了比较。<br>Alali 和 Lipton [3]，Du 和 Zhou [18,19]，以及 Emmrich 和 Weckner [20,21]建立了线性近场动力学线动量守恒的各种存在性和唯一性结果。这些文章也刻画了与等经典线弹性方程弱解的等价性，和确切的说，它表明了近场动力学方程在非局部消失的极限条件下的适定性。 特别是在给定充分的边界数据和材料属性的正则性条件下，极限解与传统的弱解一致。 在非局部稳态扩散的物理背景下，Gunzburger 和 Lehoucq [35]引入了非局部高斯定理和非局部格林公式建立了非局部边值问题的适定性。<br>[60]中概述的近场动力学理论在可以建模的材料行为的范围受到严重的限制，特别是对各向同性材料Possion比总是1/4。这就促使了重新思考整个近场动力学理论。结果是一个概念，它保留了在成对粒子之间的键携带力的想法。然而，在新方法中，每个键内的力并不能相互独立的确定。相反，每个键力取决于键的每个端点的家族内所有点的集体变形（可能还有变形的速率和历史）。由此产生的修正理论被称为基于状态(state-based)的，因为这个数学对象传达的键的集体变形的信息称为近场动力学态。本文中的技术讨论涉及的主要是基于态的理论，但是早期的基于键的理论被证明是一个基于态的特例。态基的理论在[67]中有更详细的讨论，其中包括一个特定的各向同性固体材料模型其中可以规定任何泊松比。<br>在[67]中也显示，通过对变形梯度张量的非局部近似，任何经典理论中的弹性本构模型可以适用于近场动力学理论。应用这个技巧到应变硬化塑性模型中可见文献[74,27]。经典本构模型中的应力张量也用一种类似的方式映射到键力（见4.11节）。<br>近场动力学应力张量在[48]中导出，之前在[83]中就讨论了一个类似的概念。近场动力学应力张量有着与经典理论中Piola应力张量类似的力学解释。它给出了通过任意虚拟的内部界面的单位面积的力。然而，在近场动力学的情况下，应力张量是非局部的：涉及的力是非局部键力，它从表面的一边倒另一边。对于内力密度的近场动力学算子可以准确表示为近场动力学应力张量场的散度. 因此，近场动力学运动方程就与经典方程形式上相同.<br>键基近场动力学理论到经典弹性方程的收敛性由 Zimmermann [83]中论述，在各向同性线弹性固体的背景下则由Emmrich和Weckner[21]中给出. 在态基近场动力学本构建模的框架下，[68]中展示了如果变形是经典光滑的，对内力密度的近场动力学算子趋于经典算子，在$\delta\rightarrow 0$时(见6.3节)。这个极限过程产生了一个对Piola应力的经典本构模型，在$\delta\rightarrow 0$的情况下。在这种意义下，近场动力学理论收敛到经典理论。<br>Sears 和 Lehoucq [58] 给出了近场动力学线动量平衡的统计力学基础。相互作用力的非局部性是本质的，源于分子间的相互作用。分析类似于Irving和Kirkwood[39]中里程碑式的工作，他们的目标是从随机物理中导出经典场方程。经典线动量守恒是更一般的近场动力学守恒的一个推论，当积分算子表示为应力张量的散度。在对势的重要特殊情况，Noll[58,49]实际上导出了近场动力学线动量守恒作为从随机力学原理导出经典守恒律的中间步骤。<br>Gerstle et al. 推广了近场动力学模型到扩散过程，包括高电流密度引起的热传导和物种迁移[31]。他们应用了多物理机理的组合非局部方程，包括特殊的扩散，热传导，力学，电传导等，到一个演示由于电迁移导致的电子零件故障的模型问题当中。<br>几乎所有的近场动力学模型的应用依赖于数值解。一个近似近场动力学场方程的数值技巧在[61]中提出。这个数值方法简单的把(1)中的体积积分替换为有限和：</p>
+<script type="math/tex; mode=display">
+\frac{\rho_i}{h^2}(u_i^{n+1}-2u_i^n+u_i^{n-1}) = \sum_{j\in\mathcal{H}}f(u_j^n-u_i^n,x_j-x_i)V_i+b_i^n</script><p>其中$i$是节点数，$n$是时间步数，$h$是时间步长，$V_i$是参考构型中节点$i$的体积. 这个数值方法是无网格的，因为离散节点之间没有几何上的联系。一维情况下离散方法的自适应细分和收敛性在[11]中讨论。<br>通过导致相互作用节点之间的键被不可逆的破坏，损伤被纳入数值方法中。尽管破坏在所有键之间独立的出现，但它们的破坏倾向于沿着称为裂缝的二维表面自组织。裂缝自主的发展：它们的发展仅由场方程和本构模型在键的层面确定。并没有附加的关系来表明裂纹的生长。特别的，没有用到应力强度因子。由于方程的非局部特性，裂尖附近的场的数值结果是有界的。一个对于Kalthoff-Winkler问题的计算机的解决方案在[61]中给出，这是在计算断裂力学中重要的基准问题。额外的例子以及数值方法的细节在[65,76]中讨论。  </p>
+<h3 id="2-Balance-Laws"><a href="#2-Balance-Laws" class="headerlink" title="2.Balance Laws"></a>2.Balance Laws</h3><p>本章以更系统的方式导出了近场动力学中的守恒律(线动量守恒，角动量守恒)，并阐述了在一个物体的子区域内的整体能量守恒，从而导出了局部能量守恒。能量守恒包括了热传导功率和机械功率。整体能量守恒考虑到了子区域的吸收功率(absorbed power)和输入功率(supplied power). 一个重要的结果是根据这些功率定义的内能是一个增量，从而导出了有意义的内能密度的概念。<br>线动量守恒，角动量守恒，能量守恒是以一种规范的结构展示的，我们称之为主平衡律(master balance law). 主平衡律表示了子区域内增量的变化来自于内外点的相互作用加上源项的贡献。物质点之间的相互作用是积分算子中的被积函数，被积函数的反对称性允许把积分算子写为非局部流量的散度的积分。</p>
+<h4 id="2-1-Balance-of-Linear-Momentum"><a href="#2-1-Balance-of-Linear-Momentum" class="headerlink" title="2.1 Balance of Linear Momentum"></a>2.1 Balance of Linear Momentum</h4><p>$\mathcal{B}$表示物体，参考构型，是一个有界闭区域，密度为$\rho$. $y(\cdot,\cdot)$表示物体的运动，$y(x,t)$是$t\ge 0$时物质点$x\in\mathcal{B}$的位置，$\mathcal{B}$在变形后记为$\mathcal{B}_t$. 定义速度场为</p>
+<script type="math/tex; mode=display">
+v(x,t)=\dot{y}(x,t), \forall x\in\mathcal{B}, t\ge 0</script><p>$b$是外载荷力密度场。令$L(x,t)$表示在(x,t)处的由于$x$与其他粒子相互作用产生的力密度。在一个子区域$\mathcal{P}\subset\mathcal{B}$内的力向量是</p>
+<script type="math/tex; mode=display">
+\int_{\mathcal{P}}(L+b)dV,</script><p>注意积分是在参考构型上进行的。对这个子区域使用牛顿第二定律有</p>
+<script type="math/tex; mode=display">
+\frac{d}{dt}\int_{\mathcal{P}}\rho\dot{y}dV = \int_{\mathcal{P}}\rho \ddot{y}dV = \int_{\mathcal{P}}(L+b)dV,\tag{2}</script><p>即，通过局部化，运动方程为</p>
+<script type="math/tex; mode=display">
+\rho(x)\ddot{y}(x,t) = L(x,t) + b(x,t),\forall x\in\mathcal{B},t\ge 0.\tag{3}</script><p>对整个物体$\mathcal{B}$使用牛顿第二定律有</p>
+<script type="math/tex; mode=display">
+\frac{d}{dt}\int_{\mathcal{B}}\rho\dot{y}dV = \int_{\mathcal{B}}bdV.\tag{4}</script><p>在$(2)$中令$\mathcal{P} = \mathcal{B}$,再与$(4)$中结果比较则有$L$一定是自平衡的：</p>
+<script type="math/tex; mode=display">
+\int_{\mathcal{B}}L(x,t)dV_x=0,\forall t\ge 0.</script><p>令$f(\cdot,\cdot,\cdot)$是向量值函数使得</p>
+<script type="math/tex; mode=display">
+L(x,t) = \int_{B}f(x',x,t)dV_{x'}, \forall x\in\mathcal{B},t\ge 0.\tag{5}</script><p>并且$f$是反对称的：</p>
+<script type="math/tex; mode=display">
+f(x,x',t) = -f(x',x,t),\forall x,x'\in\mathcal{B},t\ge 0.\tag{6}</script><p>对于给定的$L$，这样的$f$总能找到，例如：</p>
+<script type="math/tex; mode=display">
+f(x,x',t) = \frac{1}{V}(L(x,t) - L(x',t)) \tag{7}</script><p>其中$V$是$\mathcal{B}$在参考构型中的体积. 函数$f$在近场动力学中扮演着重要的角色, 称为对偶力密度(dual force density), 单位是$N/m^{-6}$.一般向量$f(x’,x,t)$和$f(x,x’,t)$不与向量$y(x’t)-y(x,t)$平行。$(7)$中$f$的选择并没有什么实际意义，只不过说明了对于给定的$L$，这样的$f$存在. 在实际应用中，$f$由变形通过本构关系确定.<br>利用$f$的反对称性就可以把在一个子区域上的线动量守恒表示为$f$仅连接$\mathcal{P}$内部的点与其外部$\mathcal{B}  \mathcal{P}$的点。由于$f$的反对称性</p>
+<script type="math/tex; mode=display">
+\int_{\mathcal{P}}\int_{\mathcal{P}}f(x',x,t)dV_{x'}dV_x = 0.\tag{8}</script><p>由$(2),(5),(8)$则有</p>
+<script type="math/tex; mode=display">
+\frac{d}{dt}\int_{\mathcal{P}}\rho\dot{y}(x,t)dV = \int_{\mathcal{P}}\int_{\mathcal{B}\setminus \mathcal{P}}f(x,x',t)dV_{x'}dV_x + \int_{\mathcal{P}}b(x,t)dV_x.\tag{9}</script><p>下面说明$(9)$对任意区域$\mathcal{P}\subset\mathcal{B}$成立$\Leftrightarrow (6)$成立。前面已经说明了反方向的箭头是成立的，因此下面只需说明反方向的箭头也成立即可。<br>对任意子区域$\mathcal{N}\subset\mathcal{B}$和$\mathcal{N}’\subset{B}$, 满足$\mathcal{N}\cup\mathcal{N’}=\varnothing$. 定义$\mathcal{R} (\mathcal{N}\cup\mathcal{N}’)$. 因为$\mathcal{B\setminus N=N’+R}, \mathcal{B\setminus N’ = N + R}$, 因此不论$f$反对称与否都有</p>
+<script type="math/tex; mode=display">
+[\int_{\mathcal{N}}\int_{\mathcal{B\setminus N}}+\int_{\mathcal{N'}}\int_{\mathcal{B\setminus N'}}-
+\int_{\mathcal{N}}\int_{\mathcal{N'}}-\int_{\mathcal{N'}}\int_{\mathcal{N}}-\int_{\mathcal{N\cup N'}}\int_{\mathcal{R}}]f(x',x)dV_{x'}dV_x = 0.\tag{10}</script><p>由于积分算子的线性性，则有</p>
+<script type="math/tex; mode=display">
+[\int_{\mathcal{N}}+\int_{\mathcal{N'}}-\int_{\mathcal{N\cup N'}}](\rho\ddot{y}(x,t)-b(x,t))dV_x = 0,</script><p>根据$(9)$式，则有</p>
+<script type="math/tex; mode=display">
+[\int_{\mathcal{N}}\int_{\mathcal{B\setminus N}}+\int_{\mathcal{N'}}\int_{\mathcal{B\setminus N'}}-\int_{\mathcal{N\cup N'}}\int_{\mathcal{R}}](\rho\ddot{y}(x,t)-b(x,t))dV_x = 0.</script><p>带入$(10)$则有</p>
+<script type="math/tex; mode=display">
+[\int_{\mathcal{N}}\int_{\mathcal{N'}}+\int_{\mathcal{N'}}\int_{\mathcal{N}}]f(x,x') = 0.</script><p>由于这个方程对任意不想交的$\mathcal{N, N’}$成立, 因此$(9)$蕴含着$(6)$.<br>为了方便，可以不准确的认为$f(x’,x,t)$在物理上表示粒子$x’$对$x$的力向量$(N/m^6)$。这个解释不准确是因为粒子$x,x’$并没有直接的物理联系来产生力.例如，$L$给定，则由$(7)$可以生成$f$，并不论粒子$x,x’$之间有没有物理联系，比如弹簧。<br>对于给定的$f$场满足$(5),(6)$, 令$t(\cdot,\cdot,\cdot)$表示一个向量值函数满足</p>
+<script type="math/tex; mode=display">
+f(x',x,t) = t(x',x,t)-t(x,x',t),\forall x,x'\in \mathcal{B},t\ge 0.\tag{11}</script><p>这样的$t$函数总能找到。例如：</p>
+<script type="math/tex; mode=display">
+t(x,x',t) = \frac{f(x',x,t)}{2},\forall x,x'\in\mathcal{B},t\ge 0.</script><p>函数$t$称为键力密度(bond force density)，是近场动力学理论中由本构模型产生的基本量。<br>简化记号：</p>
+<script type="math/tex; mode=display">
+t = t(x',x,t), t' = t(x,x',t),\\
+f = f(x',x,t), f' = f(x,x',t),\\
+y = y(x,t), y' = y(x',t),\\
+\rho = \rho(x), b = b(x,t),\\
+L = L(x,t),
+dV = dV_x, dV' = dV_{x'}.
+\tag{12}</script><p>由$(5),(11)$有</p>
+<script type="math/tex; mode=display">
+L = \int_{\mathcal{B}}(t'-t)dV'.\tag{13}</script><p>由$(9),(11)$有, 对任意子区域$\mathcal{P\subset B}$</p>
+<script type="math/tex; mode=display">
+\frac{d}{dt}\int_{\mathcal{P}}\rho\dot{y}dV = \int_{\mathcal{P}}\int_{\mathcal{B}\setminus \mathcal{P}}(t-t')dV_{x'}dV_x + \int_{\mathcal{P}}bdV_x.\tag{14}</script><p>由$(3),(5)$, 局部的线动量守恒为</p>
+<script type="math/tex; mode=display">
+\rho(x)\ddot{y} = \int_{B}fdV_{x'} + b,\forall x\in\mathcal{B},t\ge 0.\tag{15}</script><p>或者等价的有</p>
+<script type="math/tex; mode=display">
+\rho(x)\ddot{y} = \int_{\mathcal{B}}(t'-t)dV' + b,\forall x\in\mathcal{B},t\ge 0.\tag{16}</script><p>局部的线动量守恒也被称为运动方程. 在$(16)$中令$\ddot{y} = 0$, 平衡方程就是</p>
+<script type="math/tex; mode=display">
+\int_{\mathcal{B}}(t'-t)dV' + b = 0,\forall x\in\mathcal{B}.\tag{16}</script><p>$(14)$中的双重积分表示通过$\mathcal{P}$的边界的线动量的非局部通量。这一项就类似于经典局部理论子区域上的接触力。方程$(14)$就是非局部平衡原理的一个例子，它的结构将在2.5节中讨论。</p>
+<h4 id="2-2-Principle-of-Virtual-Work"><a href="#2-2-Principle-of-Virtual-Work" class="headerlink" title="2.2 Principle of Virtual Work"></a>2.2 Principle of Virtual Work</h4><p>边界条件和初值条件可以整合到线动量守恒$(16)$中，通过形成变分问题[51].令 $\mathcal{B^{<em>}\subset B}$ 有非0体积. $\mathcal{B^{</em>}}$由运动被规定的粒子组成. 令 $w(\cdot, \cdot)$ 是物体 $\mathcal{B}$的一个运动，简化记号</p>
+<script type="math/tex; mode=display">
+w = w(x,t), w' = w(x', t).</script><p>则虚功原理如下所述：</p>
+<script type="math/tex; mode=display">
+\int_{\mathcal{B}}\rho\ddot{y}\cdot wdV + \int_{\mathcal{B}}\int_{\mathcal{B}}t\cdot (w'-w)dV'dV = \int_{\mathcal{B}}b\cdot wdV,on\mathcal{B\setminus B^*}\\
+\dot{y}(\cdot,0) = V_0(\cdot),on\mathcal{B\setminus B^*}\tag{17}</script><p>对所有的运动$w$满足下式都成立</p>
+<script type="math/tex; mode=display">
+w = 0,on\mathcal{B^*}.\tag{18}</script><p>由下式(变量代换并改变求积顺序)</p>
+<script type="math/tex; mode=display">
+\int_{\mathcal{B}}\int_{\mathcal{B}}t\cdot (w'-w)dV'dV =- \int_{\mathcal{B}}\int_{\mathcal{B}}(t-t')\cdot wdV'dV.\tag{19}</script><p>则容易看出其与如下线动量守恒的初边值问题等价</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+\rho\ddot{y} = \int_{\mathcal{B}}(t-t')dV'+b,on\mathcal{B\setminus B^*},\\
+y = y^*, on\mathcal{B^*},\\
+\dot{y}(\cdot,0)=v_0(\cdot),on\mathcal{B\setminus B^*}
+\end{cases}
+\tag{20}</script><h4 id="2-3-Balance-of-Angular-Momentum"><a href="#2-3-Balance-of-Angular-Momentum" class="headerlink" title="2.3 Balance of Angular Momentum"></a>2.3 Balance of Angular Momentum</h4><h3 id="3-Peridynamic-States-Notion-and-Properties"><a href="#3-Peridynamic-States-Notion-and-Properties" class="headerlink" title="3.Peridynamic States: Notion and Properties"></a>3.Peridynamic States: Notion and Properties</h3><p>$\mathcal{H_x} = \{x’\in \mathcal{B}|dist(x,x’)&lt; \delta\}$, 称为点$x$的家族，$\mathcal{H}=\{\mathbf{\xi}\in\mathbb{R^3\setminus 0}(\xi + x)\in\mathcal{H_x\cap B}\}$表示连接$x$的所有键组成的集合。<br>态是定义在$\mathcal{H}$上的函数，用$\underline{A}&lt;\cdot&gt;$表示，其中尖括号中是一个向量$\xi\in\mathcal{H}$, 圆括号和方括号在后面会用来表示对其他量的依赖. 简单来说，态就是一个把向量映射为标量、向量、张量的函数.<br>$\underline{A}&lt;\xi&gt;$标量，$\underline{A}$就是标量态，所有标量态的集合记作$\mathcal{S}$. e.g.:  </p>
+<ul>
+<li>$\underline{0}&lt;\xi&gt; = 0,\forall\xi\in\mathcal{H}$，零态  </li>
+<li>$\underline{1}&lt;\xi&gt; = 1,\forall\xi\in\mathcal{H}$，单位态  </li>
+<li>$\underline{a}&lt;\xi&gt; = 3\mathbf{c\cdot\xi},\forall\xi\in\mathcal{H},c$常向量  </li>
+</ul>
+<p>$\underline{A}&lt;\xi&gt;$向量，$\underline{A}$就是向量态，所有向量态的集合记作$\mathcal{V}$. e.g.:  </p>
+<ul>
+<li>$\underline{\mathbf{0}}&lt;\xi&gt; = 0,\forall\xi\in\mathcal{H}$，空向量态  </li>
+<li>$\underline{\mathbf{X}}&lt;\xi&gt; = 1,\forall\xi\in\mathcal{H}$，恒等态  </li>
+<li>$\underline{\mathbf{A}}&lt;\xi&gt; =\mathbf{c+\xi},\forall\xi\in\mathcal{H},c$常向量</li>
+</ul>
+<p>双态$\underline{\mathbb{A}}&lt;\xi,\zeta&gt;,\xi,\zeta\in\mathcal{H}$,是$\mathcal{H\times H}\rightarrow$二阶张量的映射，所有双态的集合记为$\mathcal{D}$.<br>下面是定义的一些关于态的基本运算：$\underline{a}$,$\underline{b}$是标量态，$\underline{\mathbf{A}}$,$\underline{\mathbf{B}}$是向量态，$\mathbf{V}$是一个向量, 则对任意$\xi\in\mathcal{H}$，有</p>
+<script type="math/tex; mode=display">
+(\underline{a}+\underline{b})<\xi> = \underline{a}<\xi> + \underline{b}<\xi>,\\
+(\underline{ab})<\xi> = \underline{a}<\xi>\underline{b}<\xi>,\\
+(\underline{a\mathbf{B}})<\xi> = \underline{a}<\xi>\underline{\mathbf{B}}<\xi>,\\
+(\underline{\mathbf{A}}+\underline{\mathbf{B}})<\xi> = \underline{\mathbf{A}}<\xi> + \underline{\mathbf{B}}<\xi>,\\
+(\underline{\mathbf{A}}\cdot\underline{\mathbf{B}})<\xi> = \underline{\mathbf{A}}<\xi>\cdot\underline{\mathbf{B}}<\xi>,\\
+(\underline{\mathbf{A}}\otimes\underline{\mathbf{B}})<\xi> = \underline{\mathbf{A}}<\xi>\otimes\underline{\mathbf{B}}<\xi>,\\
+(\underline{\mathbf{A}}\circ\underline{\mathbf{B}})<\xi> = \underline{\mathbf{A}}<\xi>\circ\underline{\mathbf{B}}<\xi>,\\
+(\underline{\mathbf{A}}\cdot\mathbf{V})<\xi> = \underline{\mathbf{A}}<\xi>\cdot\mathbf{V}.\\</script><p>$\cdot$表示标量积，$\otimes$表示张量积。<br>定义标量态$|\underline{\mathbf{A}}|$为</p>
+<script type="math/tex; mode=display">
+|\underline{\mathbf{A}}|<\xi> = |\underline{\mathbf{A}}<\xi>|
+\tag{50}</script><p>点积</p>
+<script type="math/tex; mode=display">
+\underline{a}\bullet\underline{b} = \int_{\mathcal{H}}\underline{a}<\xi>\underline{b}<\xi>dV_{\xi},\\
+\underline{\mathbf{A}}\bullet\underline{\mathbf{B}} = \int_{\mathcal{H}}\underline{\mathbf{A}}<\xi>\underline{\mathbf{B}}<\xi>dV_{\xi},
+\tag{51}</script><p>范数</p>
+<script type="math/tex; mode=display">
+||\underline{a}||=\sqrt{\underline{a}\bullet\underline{a}},\\
+||\underline{\mathbf{A}}||=\sqrt{\underline{\mathbf{A}}\bullet\underline{\mathbf{A}}}
+\tag{52}</script><p>由于近场动力学的本构关系涉及到了态函数，对于态函数的泛函的变分导数的引入也是十分有必要的，下面就是直接将变分导数的定义拿过来。<br>若$\psi(\cdot):\mathcal{S}\rightarrow\mathbb{R}$是标量态，则其<em>Frechet derivative</em> $\nabla\psi$ 如果存在，定义为</p>
+<script type="math/tex; mode=display">
+\psi(\underline{A}+\underline{a})=\psi(\underline{A})+\nabla\psi(\underline{A})\bullet\underline{a}+o(||\underline{a}||)
+\tag{53}</script><p>其中$\underline{A},\underline{a},\nabla\psi$是标量态.<br>若$\psi(\cdot):\mathcal{S}\rightarrow\mathbb{R}$是向量态，则其<em>Frechet derivative</em> $\nabla\psi$ 如果存在，定义为</p>
+<script type="math/tex; mode=display">
+\Psi(\underline{\mathbf{A}}+\underline{\mathbf{a}})=\Psi(\underline{\mathbf{A}})+\nabla\Psi(\underline{\mathbf{A}})\bullet\underline{\mathbf{a}}+o(||\underline{\mathbf{a}}||)
+\tag{54}</script><p>其中$\underline{\mathbf{A}},\underline{\mathbf{a}},\nabla\Psi$是向量态.<br>对于以多个态为自变量的函数，如$\Psi(\underline{\mathbf{A}},\underline{\mathbf{B}})$, $\Psi_{\underline{\mathbf{A}}},\Psi_{\underline{\mathbf{B}}}$分别表示关于变量$\underline{\mathbf{A}},\underline{\mathbf{B}}$的 <em>Frechlet</em> 导数。并且有复合函数求导的链式法则：</p>
+<script type="math/tex; mode=display">
+\frac{\partial}{\partial\underline{\mathbf{A}}}f(\psi(\underline{\mathbf{A}})) = f'(\psi(\underline{\mathbf{A}}))\nabla\psi(\underline{\mathbf{A}})</script><p>注意上面的定义并没有排除模型的非线性表现。<br>态场就是位置和时间的态值函数，用方括号表示，就是给定时间，位置就对应一个态函数：</p>
+<script type="math/tex; mode=display">
+\underline{\mathbf{A}}[x,t],x\in\mathcal{B},t\ge 0.</script><p>例如：</p>
+<script type="math/tex; mode=display">
+\underline{a}[x,t]<\xi> = |\xi+x|t,\forall\xi\in\mathcal{H},x\in\mathcal{B},t\ge0.</script><p>一个态值函数对其他态值函数的依赖用圆括号表示，例如</p>
+<script type="math/tex; mode=display">
+\underline{\mathbf{A}}(\underline{\mathbf{B}}).</script><p>向量态的态值函数的例子：</p>
+<script type="math/tex; mode=display">
+\underline{a}(\underline{\mathbf{B}}) = |\underline{\mathbf{B}}|^3,</script><p>i.e.,  </p>
+<script type="math/tex; mode=display">
+\underline{a}(\underline{\mathbf{B}}<\xi>) = |\underline{\mathbf{B}}<\xi>|^3,\forall\xi\in\mathcal{H},x\in\mathcal{B},t\ge0.</script><p>一个向量态就类似于一个张量，因为它把向量映射为向量，向量态不一定是向量的线性变换，这是非线性和非局部性导致的。<br>经典理论中，本构模型是一个张量是其他张量的函数。<br>近场动力学中，本构模型是一个向量态是其它向量态的函数。</p>
+<h3 id="4-Constitutive-Modeling"><a href="#4-Constitutive-Modeling" class="headerlink" title="4.Constitutive Modeling"></a>4.Constitutive Modeling</h3><h3 id="5-Linear-Theory"><a href="#5-Linear-Theory" class="headerlink" title="5.Linear Theory"></a>5.Linear Theory</h3><h4 id="5-4-Equations-of-Motion-and-Equilibrium"><a href="#5-4-Equations-of-Motion-and-Equilibrium" class="headerlink" title="5.4 Equations of Motion and Equilibrium"></a>5.4 Equations of Motion and Equilibrium</h4><p>由于</p>
+<script type="math/tex; mode=display">
+(\underline\mathbb{K}[x]\bullet\underline\mathbf{U}[x,t])<\xi> = \int_{\mathcal{H}}\underline\mathbb{K}[x]<\xi,\zeta>\underline\mathbf{U}[x,t]<\zeta>dV_{\zeta}</script><p>所以</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+(\underline\mathbb{K}[x]\bullet\underline\mathbf{U}[x,t])<p-x> 
+&= \int_{\mathcal{H}}\underline\mathbb{K}[x]<p-x,\zeta>\underline\mathbf{U}[x,t]<\zeta>dV_{\zeta}\\
+&= \int_{\mathcal{B}}\underline\mathbb{K}[x]<p-x,q-x>\underline\mathbf{U}[x,t]<q-x>dV_{q}\\
+&= \int_{\mathcal{B}}\underline\mathbb{K}[x]<p-x,q-x>(u(q,t)-u(x,t))dV_q\\
+\end{aligned}</script><p>即</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+(\underline\mathbb{K}[p]\bullet\underline\mathbf{U}[p,t])<x-p> 
+&= \int_{\mathcal{B}}\underline\mathbb{K}[p]<x-p,\zeta>\underline\mathbf{U}[x,t]<\zeta>dV_{\zeta}\\
+&= \int_{\mathcal{B}}\underline\mathbb{K}[p]<x-p,q-p>\underline\mathbf{U}[x,t]<q-x>dV_{q}\\
+&= \int_{\mathcal{B}}\underline\mathbb{K}[p]<x-p,q-p>(u(x,t)-u(q,t)+u(q,t)-u(p,t))dV_q\\
+&= -\int_{\mathcal{B}}\underline\mathbb{K}[p]<x-p,q-p>(u(q,t)-u(x,t))dV_q\\
+&- \int_{\mathcal{B}}\underline\mathbb{K}[p]<x-p,q-p>(u(p,t)-u(q,t))dV_q\\
+&= -\int_{\mathcal{B}}\underline\mathbb{K}[p]<x-p,q-p>(u(q,t)-u(x,t))dV_q\\
+&+ \int_{\mathcal{B}}\underline\mathbb{K}[x]<p-x,q-p>(u(q,t)-u(x,t))dV_q\\
+\end{aligned}</script><h3 id="6-Relation-to-Other-Theories"><a href="#6-Relation-to-Other-Theories" class="headerlink" title="6.Relation to Other Theories"></a>6.Relation to Other Theories</h3><h3 id="7-Discrete-Particles-as-Peridynamic-Bodies"><a href="#7-Discrete-Particles-as-Peridynamic-Bodies" class="headerlink" title="7.Discrete Particles as Peridynamic Bodies"></a>7.Discrete Particles as Peridynamic Bodies</h3><h3 id="8-Damage-and-Fracture"><a href="#8-Damage-and-Fracture" class="headerlink" title="8.Damage and Fracture"></a>8.Damage and Fracture</h3><h3 id="9-Discussion"><a href="#9-Discussion" class="headerlink" title="9.Discussion"></a>9.Discussion</h3>
+    </div>
+  </div>
+  
+    <div class="copy-right">
+      <div class="markdown-body">
+        <blockquote>
+        
+        
+          本文作者 : CHTLD <br>
+        
+        原文链接 : <a href>http://yoursite.com/2018/12/14/2018-12-14-Peridynamic-Theory-of-Solid-Mechanics/</a><br>
+        版权声明 : 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+        </blockquote>
+      </div>
+    </div>
+  
+  
+  
+
+  
+    <div id="reward">
+  
+    <p id="reward-meta">知识 & 情怀 | 二者兼得</p>
+  
+  <button id="reward-btn">
+    
+    <span>投食</span>
+  </button>
+  <div id="reward-qrcode">
+    
+      <div class="reward-qrcode--container">
+        <img class="qrcode-img" src="/images/wechat.png" alt="微信扫一扫, 向我投食">
+        <p class="qrcode-meta">微信扫一扫, 向我投食</p>
+      </div>
+    
+      <div class="reward-qrcode--container">
+        <img class="qrcode-img" src="/images/alipay.png" alt="支付宝扫一扫, 向我投食">
+        <p class="qrcode-meta">支付宝扫一扫, 向我投食</p>
+      </div>
+    
+  </div>
+
+</div>
+
+<script>
+  (() => {
+    let button = document.querySelector('#reward-btn'),
+      qrcode = document.querySelector('#reward-qrcode'),
+      display = false;
+    
+    button.addEventListener('click', () => {
+      qrcode.style.display = display ? 'none' : 'block'
+      display = !display
+    }, false)
+  })()
+</script>
+  
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+      <span>
+        
+          <i class="iconfont icon-06tags"></i>标签: 
+          
+          <span class="span--tag">
+            <a href="/tags/peridynamics/">
+              #peridynamics
+            </a>
+          </span>
+          
+        
+      </span>
+    </div>
+    <div class="article-meta pull-right">
+    </div>
+  </div>
+</div>
+
+
+  <aside id="sidebar">
+    <p id="sidebar-header"></p>
+    <ol id="sidebar-toc"></ol>
+  </aside>
+  <script async>setTimeout(generateToc, 10);</script>
+
+
+  <nav class="post-navigation">
+    
+      <div class="nav-pre">
+        <i class="iconfont icon-prev"></i>
+        上一篇:
+        <a href="/2018/10/26/2018-10-26-常微分方程笔记(1)/" target="_self">常微分方程笔记(1)</a>
+      </div>
+    
+    
+      <div class="nav-next">
+        下一篇:
+        <a href="/2019/01/04/2019-01-04-散度-梯度-旋度/" target="_self">梯度-散度-旋度</a>
+        <i class="iconfont icon-next"></i>
+      </div>
+    
+  </nav>
+
+  
+    <a href="#comment" class="comment-anchor"></a>
+<div class="comment-title"><i class="iconfont icon-footprint"></i> 留下足迹 <i class="iconfont icon-footprint"></i></div>
+<div id="vcomments"></div>
+
+<script defer>
+  if( true ) {
+    let path = getRealPath()
+    new Valine({
+      el: "#vcomments",
+      appId: "Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz",
+      appKey: "WaR7nrzhliHj9aVwdQzkdlGd",
+      notify: false,
+      verify: false,
+      avatar: "robohash",
+      placeholder: "正确填写邮箱, 才能及时收到回复哦♪(^∇^*)",
+      path
+    });
+  }
+</script>
+   
+
+  
+    <script defer>
+const valineAPI = (() => {
+  try {
+    AV.init("Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz", "WaR7nrzhliHj9aVwdQzkdlGd");
+  } catch(error) {}
+  const isExist = (identity) => {
+    identity = identity || getRealPath();
+    let query = new AV.Query('Timer');
+    return new Promise((resolve, reject) => {
+      query.equalTo("identity", identity);
+      query.find().then(results => {
+        resolve(results.length > 0);
+      }, error => reject(error));
+    })
+  }
+
+  const _get = (identity) => {
+    let query = null;
+    if(identity && identity instanceof Array){
+      let querys = [];
+      for(let i = 0; i < identity.length; ++i) {
+        querys[i] = new AV.Query('Timer');
+        querys[i].equalTo('identity', identity[i]);
+      }
+      query = AV.Query.or.apply(null ,querys);
+    } else {
+      identity = identity || getRealPath();
+      query = new AV.Query("Timer");
+      query.equalTo("identity", identity);
+    }
+
+    return new Promise((resolve, reject) => {
+      query.find()
+      .then(results => resolve(results))
+      .catch(error => reject(error))
+    })
+  }
+
+  const create = (identity) => {
+    identity = identity || getRealPath();
+    return new Promise((resolve, reject) => {
+      let Todo = AV.Object.extend('Timer');
+      let todo = new Todo();
+      todo.set("times", 1);
+      todo.set("identity", identity);
+      todo.save().then(res => resolve(true), error => reject(error));
+    })
+  }
+
+  const update = (identity) => {
+    identity = identity || getRealPath();
+    return new Promise((resolve, reject) => {
+      let query = new AV.Query('Timer');
+      query.equalTo("identity", identity);
+      query.find().then(todos => {
+        todos.forEach(todo => {
+          todo.set("times", todo.attributes.times + 1);
+        });
+        return AV.Object.saveAll(todos);
+      }).then(todos => resolve(true), error => reject(error));
+    })
+  }
+
+  return {
+    isExist,
+    _get,
+    update,
+    create
+  }
+})()
+
+const calcAndWriteTimes = () => {
+  let isPost = true;
+
+  let timerAllDOM = document.querySelectorAll(".article-timer");
+
+  if(isPost) {
+    let identity = timerAllDOM[0].getAttribute("data-identity");
+    valineAPI.isExist(identity)
+    .then(exist => {
+      if(exist) {
+        return valineAPI.update(identity);
+      }
+      return new Promise(resolve => resolve(true));
+    })
+    .then( succuess => valineAPI._get(identity))
+    .then( result => timerAllDOM[0].innerText = result[0].attributes.times)
+    .catch(error => console.log(error.message))
+    return ;
+  }
+
+  let timerDOMCache = {};
+
+  for(let timerDOM of timerAllDOM) {
+    let identity = timerDOM.getAttribute("data-identity");
+    if(timerDOMCache.hasOwnProperty(identity)){
+      timerDOMCache[identity].dom.push(timerDOM);
+    }else{
+      timerDOMCache[identity] = {
+        dom: [timerDOM],
+        times: undefined
+      };
+    }
+  }
+
+  let identities = Object.keys(timerDOMCache);
+  valineAPI._get(identities).then(results => {
+    for(let result of results) {
+      let {identity, times} = result.attributes;
+      timerDOMCache[identity].times = times;
+      timerDOMCache[identity].dom.map(item => item.innerText = times);
+    }
+    for(let identity of identities) {
+      if(timerDOMCache[identity].times){
+        continue;
+      }
+      timerDOMCache[identity].dom.map(item => item.innerText = 1);
+      valineAPI.create(identity);
+    }
+  }).catch(error => console.log(error.message))
+}
+
+if(true){
+  calcAndWriteTimes();
+}
+</script>
+   
+
+</div>
+
+
+      <footer>
+  <p class="site-info">
+    博客已萌萌哒运行<span id="time-to-now"></span><span class="my-face">(●'◡'●)ﾉ♥</span>
+    <br>
+    Theme - <a href="https://github.com/dongyuanxin/theme-bmw">BMW</a> | Made With 💗 | Powered by <a href="https://godbmw.com/">GodBMW</a>
+    <br>
+    
+  </p>
+</footer>
+
+
+
+<script>
+const timeToNowDOM = document.querySelector("#time-to-now");
+const startTimestamp = new Date(2018, 2, 1).getTime();
+
+const updateTimeStr = () => {
+  let offset = parseInt(
+      (new Date().getTime() - startTimestamp) / 1000,
+      10
+    ),
+    day = Math.floor(offset / 86400),
+    hour = Math.floor((offset % 86400) / 3600),
+    minute = Math.floor(((offset % 86400) % 3600) / 60),
+    second = Math.floor(((offset % 86400) % 3600) % 60);
+  timeToNowDOM.innerHTML =
+    day + "天" + hour + "小时" + minute + "分钟" + second + "秒";
+  setTimeout(updateTimeStr, 500);
+}
+
+setTimeout(updateTimeStr, 500);
+</script>
+
+
+      <div class="back-to-top hidden">
+  <span>
+    <i class="iconfont icon-60"></i><span></span>%
+  </span>
+</div>
+
+<script>
+const updateIconToTop = percent => {
+  let dom = document.querySelector(".back-to-top span span");
+  dom.innerText = percent;
+  if(percent < 1) {
+    document.querySelector(".back-to-top").className = "back-to-top hidden";
+  } else {
+    document.querySelector(".back-to-top").className = "back-to-top";
+  }
+}
+
+const handleScoll = () => {
+  let isRunning = false;
+  return () => {
+    if (isRunning) return;
+    isRunning = true;
+    window.requestAnimationFrame(timestamp => {
+      let scrollTop =
+          document.documentElement.scrollTop || document.body.scrollTop,
+        scrollHeight =
+          document.documentElement.scrollHeight ||
+          document.body.scrollHeight,
+        clientHeight =
+          document.documentElement.clientHeight ||
+          document.body.clientHeight;
+      isRunning = false;
+      if (scrollTop <= 1) {
+        updateIconToTop(0);
+        return;
+      }
+      if (scrollTop + clientHeight >= scrollHeight) {
+        updateIconToTop(100);
+      } else {
+        updateIconToTop(parseInt(
+          100 * scrollTop / (scrollHeight - clientHeight),
+          10
+        ));
+      }
+    });
+  };
+}
+
+const backToTop = () => {
+  let scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop,
+    delay = 10,
+    time = 200;
+  if (scrollTop <= 20) {
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    return;
+  }
+  let step = Math.ceil(scrollTop * delay / time);
+  let timer = setInterval(() => {
+    scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop;
+    if (scrollTop - step <= 0) {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      clearInterval(timer);
+    } else {
+      document.documentElement.scrollTop = scrollTop - step;
+      document.body.scrollTop = scrollTop - step;
+    }
+  }, delay);
+}
+
+document.addEventListener("scroll", handleScoll(), false);
+
+document.querySelector(".back-to-top").addEventListener("click", backToTop, false);
+
+</script>
+
+    </div>
+
+    
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script>
+  (() => {
+    const mathjaxConfig = {
+      showProcessingMessages: false, //关闭js加载过程信息
+      messageStyle: "none", //不显示信息
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [["$", "$"], ["\\(", "\\)"]], //行内公式选择符
+        displayMath: [["$$", "$$"], ["\\[", "\\]"]], //段内公式选择符
+        skipTags: ["script", "noscript", "style", "textarea", "pre", "code", "a"] //避开某些标签
+      },
+      "HTML-CSS": {
+        availableFonts: ["STIX", "TeX"], //可选字体
+        showMathMenu: false //关闭右击菜单显示
+      }
+    }
+
+    let mathjaxInterval = setInterval(() => {
+      if(!window.MathJax){
+        return;
+      }
+      window.MathJax.Hub.Config(mathjaxConfig)
+      window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById('app')])
+
+      clearInterval(mathjaxInterval)
+    }, 10)    
+  })()
+</script>
+    
+
+    <script src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script>
+<script async>
+  let fancyTimer = setInterval(function(){
+    if(!window.$){
+      return;
+    }
+    $(document).ready(function() {
+      $(".post img").each(function () {
+        if($(this).parent().get(0).tagName.toLowerCase() === "a") {
+          return;
+        }
+        // $(this).attr("data-fancybox", "gallery"); // if you add 'data-fancybox', img will display after showed
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "gallery");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      });
+      
+      clearInterval(fancyTimer);
+    });
+  }, 10);
+</script>
+
+    
+      
+         
+          <script src="/custom/script.js"  async  ></script>
+        
+      
+    
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+
+</html>

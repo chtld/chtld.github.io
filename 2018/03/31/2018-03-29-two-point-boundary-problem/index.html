@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+  
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="author" content="董沅鑫, yuanxin.me@gmail.com">
+  
+  
+  
+  <title>finite element methods of two point boundary problem | 甚远</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="技术,numerical-solution-of-partial-differential-equations,finite-element-methods,">
+  
+
+  <script>
+    console.log('\n%c Hexo-theme-bmw v4.0 ' + '%c 🎉 https://github.com/dongyuanxin/theme-bmw 🎉\n' + '\n%c View demo online ' + '%c 🔍 https://godbmw.com/ 🔍  \n' , 'color: #fadfa3; background: #030307; padding:3px 0;', '', 'color: #fadfa3; background: #030307; padding:3px 0;', '');
+  </script>
+
+  
+    <meta name="description" content="上善若水, 人生归元!">
+  
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/icon/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+
+  <script src="/js/util.js"></script>
+<script src="/js/valine.min.js"></script>
+
+  
+
+  
+    <link href="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.js" async></script>
+  
+
+  
+  
+  <script src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js" async></script>
+  
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.0/dist/av-min.js"></script>
+  
+
+</head>
+
+  <body>
+
+    
+
+    <div id="app">
+
+      <div class="header-wrap">
+  <header>
+    <div class="site-brand">
+      <div class="site-title">
+        <a href="/">上善若水, 人生归元!</a>
+      </div>
+    </div>
+    <nav class="site-navigation">
+      <ul class="nav-menu">
+      
+        <li class="nav-item" data-path="/">
+          
+            <a href="/" target="_self">
+              主页
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          
+            <a href="/archives/" target="_self">
+              归档
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path="/categories/">
+          
+            <a href="/categories/" target="_self">
+              分类
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          
+            <a href="/tags/" target="_self">
+              标签
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          
+            <a href="/friends/" target="_self">
+              友链
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          
+            <a href="/about/" target="_self">
+              关于
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path>
+          
+            <a href="javascript:void(0);" v-else>抓到我</a>
+            <ul class="nav-menu--dropdown">
+              
+                <li>
+                  <a href="https://github.com/chtld" target="_blank">
+                    Github
+                  </a>
+                </li>
+              
+                <li>
+                  <a href="https://www.zhihu.com/people/shen-yuan-77-42/activities" target="_blank">
+                    知乎
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+      </ul>
+    </nav>
+    <i class="iconfont icon-menu"></i>
+  </header>
+</div>
+
+<script>
+  let links = document.querySelectorAll('.nav-item');
+  for(let link of links){
+    let childrenLink = link.querySelector('ul');
+    link.addEventListener('mouseenter', () => {
+      if(childrenLink) {
+        childrenLink.className = "nav-menu--dropdown active";
+      }
+    })
+    link.addEventListener('mouseleave', () => {
+      if(childrenLink) {
+        childrenLink.className = "nav-menu--dropdown";
+      }
+    })
+  }
+  let rootRealPath = getRealPath(window.location.pathname, true);
+  for(let link of links) {
+    let linkPath = link.getAttribute("data-path");
+    if(linkPath && getRealPath(linkPath, true) === rootRealPath) {
+      link.className = "nav-item hover";
+    }
+  }
+
+  let iconMenu = document.querySelector("i.iconfont.icon-menu"),
+    iconMenuClicked = false;
+  let navDOM = document.querySelector("nav.site-navigation");
+  iconMenu.addEventListener("click", () => {
+    iconMenuClicked 
+      ? navDOM.className = "site-navigation active"
+      : navDOM.className = "site-navigation";
+    iconMenuClicked = !iconMenuClicked;
+  })
+</script>
+
+      
+
+
+
+
+
+
+
+
+<div class="container post-index">
+
+  
+
+<div class="post">
+  <h1 class="article-title">
+    <span>finite element methods of two point boundary problem</span>
+  </h1>
+  <div class="article-top-meta">
+    <span>
+      发布 : 
+      2018-03-31
+    </span>
+    
+      <span>
+        分类 : 
+          <a href="/categories/技术/">
+            技术
+          </a>
+      </span>
+    
+    
+      <span>
+        浏览 : <span class="article-timer" data-identity="2018-03-29-two-point-boundary-problem"></span>
+      </span>
+    
+  </div>
+
+  
+
+  <div class="article-content">
+    <div class="markdown-body">
+      <h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>两点边值问题</p>
+<p>$ -\frac{d}{dx}(c(x)\frac{du(x)}{dx}) = f(x), a&lt;x&lt;b$</p>
+<p>为保证解的适定性(存在、唯一、稳定)还需要加上适当的边界条件, 如</p>
+<ul>
+<li><p>Dirichlet边界条件</p>
+<p>$u(a)=g_a, u(b)=g_b.$</p>
+</li>
+<li><p>Neumann边界条件</p>
+<p>$u(a)=g_a, u’(b)=r_b$或$u’(a)=r_a, u(b)=g_b.$</p>
+</li>
+<li><p>Robin边界条件</p>
+<p>$u(a)=g_a, u’(b)+q_bu(b)=p_b$或$u’(a)+q_au(a)=p_a, u(b)=g_b.$</p>
+</li>
+</ul>
+<h3 id="弱形式"><a href="#弱形式" class="headerlink" title="弱形式"></a>弱形式</h3><p>对此方程两边同时乘以测试函数$v(x)$, 并在区间$[a,b]$上积分  则有</p>
+<p>$-\int^b_a(cu’)’vdx = \int^b_afvdx$</p>
+<p>利用分部积分公式有</p>
+<p>$\int^b_a(cu’)’vdx = \int^b_avd(cu’) = cu’v|^b_a-\int^b_acu’v’dx$ </p>
+<p>于是得到下式</p>
+<p>$-c(b)u’(b)v(b)+c(a)u’(a)v(a)+\int^b_acu’v’dx=\int^b_afvdx$</p>
+<p>令$a(u,v)=\int^b_acu’v’dx, F(v)=\int^b_afvdx+c(b)u’(b)v(b)-c(a)u’(a)v(a)$</p>
+<p>测试函数的选择需要满足最终形成的方程的个数等于未知数的个数, 因此我们如果想要求解该点处的未知量就需要对该点做测试, 如果该点为已知点，则不做测试，即令该点的测试函数的值为0.</p>
+<ul>
+<li><p>Dirichlet边界条件:$u(a) = g_a, u(b) = g_b$.</p>
+<p> 选择测试函数$v(x)$使得$v(a)=v(b)=0$, 则此时</p>
+<p>$a(u,v) = \int^b_acu’v’dx, F(v) = \int^b_afvdx.$</p>
+</li>
+</ul>
+<ul>
+<li><p>Neumann边界条件:$u(a) = g_a, u’(b) = r_b$.</p>
+<p>选择测试函数$v(x)$使得$v(a) = 0$, 则此时</p>
+<p>$a(u,v) = \int^b_acu’v’dx, F(v) = \int^b_afvdx+c(b)u’(b)v(b)=\int^b_afvdx+c(b)r(b)v(b)$</p>
+</li>
+</ul>
+<ul>
+<li><p>Robin边界条件:$u(a) = g_a, u’(b)+q_bu(b)=p_b$.</p>
+<p>选择测试函数$v(x)$使得$v(a)=0$,则此时</p>
+<p>$a(u,v) = \int^b_acu’v’dx, F(v) = \int^b_afvdx+c(b)u’(b)v(b)=\int^b_afvdx+c(b)(p_b-q_bu(b))v(b)$.</p>
+</li>
+</ul>
+<p>我们称$a(u,v)=F(v)$为上述方程的弱形式. 那么$u, v$应该属于什么函数空间? 为了保证上面的各式是有意的, 则在上面的推导过程中所有的积分应该是有限的, 因此所给的函数$u, v$应该满足$u\in H^1(I), $$v\in H^1(I), v(a)=v(b)=0$. 可以严格写下方程的弱形式:</p>
+<p>&emsp;&emsp;求$u\in H^1(I)$使得$a(u,v)=F(v)$对任意$v\in H^1_0(I)$成立, 其中$I=(a,b)$.</p>
+<h3 id="有限元离散"><a href="#有限元离散" class="headerlink" title="有限元离散"></a>有限元离散</h3><p>&emsp;&emsp;上述函数空间均是无穷维空间, 在实际计算中我们无法求解, 有限元Galerkin方法的思想就是用有限维空间去逼近无穷维空间, 假设存在有限维空间$U_h\subset H^1[a,b]$, 则有如下的Galekin形式:</p>
+<p>&emsp;&emsp;求$u_h\in U_h$使得$a(u_h,v_h)=F(v_h)$对任意$v_h\in U_h$.</p>
+<p>对区间$[a,b]$作一致剖分, 分为$N$等分, 则分割的大小为$h=\frac{(b-a)}{N}$. $x_i=a+(i-1)h,$ $i=1,…,$$N+1$表示网格节点, $E_n=[x_n, x_{n+1}], n=1,…,N.$表示网格单元.</p>
+<p>定义一维线性有限元空间:</p>
+<p>&emsp;&emsp;$U_h= \{\phi\in C[a,b], \phi(x)在每个网格单元E_n上是线性的, n=1,…,N.\}$</p>
+<p>对有限维空间总可以找到它的一组基将它线性表出, 我们可以证明$U_h$是$C[a,b]$的$N+1$维子空间. 证明如下:</p>
+<p>&emsp;&emsp;首先, $U_h$是$C[a,b]$的子空间是显然的(真的是显然的).</p>
+<p>&emsp;&emsp;其次, 我们可以找到$U_h$的$N+1$个连续的分段线性基函数, 则证明完成.</p>
+<p>&emsp;&emsp;考虑$\phi_j(x_i)=\delta_{ij} = \begin{cases} 1, &amp;\text{if $i=j$} \ 0, &amp;\text{if $i\neq j$} \end{cases}$, 帽子函数(hat function), $$</p>
+<p>事实上, </p>
+<p>&emsp;&emsp;$\phi_1(x)=\begin{cases}\frac{x_2-x}{h}, &amp;\text{if  $x_1\leq x\leq x_2$}, \ 0, &amp;\text{otherwise}.\end{cases}$</p>
+<p>&emsp;&emsp;$\phi_j(x)=\begin{cases}\frac{x-x_{j-1}}{h}, &amp;\text{if $x_{j-1}\leq x\leq x_j$},\ \frac{x_{j+1}-x}{h},&amp;\text{if $x_j\leq x\leq x_{j+1}$}, \ 0,&amp;\text{otherwise}.\end{cases}$</p>
+<p>&emsp;&emsp;$\phi_{N+1}(x)=\begin{cases} \frac{x-x_N}{h}, &amp;\text{if $x_N\leq x\leq x_{N+1}$},\ 0,&amp;\text{otherwise}.\end{cases}$</p>
+<p>下面说明$\phi_i,i=1,…,N+1.$是$U_h$的一组基(只需要说明两点1.线性无关, 2.任意的$f\in U_h$, 均能由其唯一的线性表出):</p>
+<p>&emsp;&emsp;考虑$\sum_{j=1}^{N+1}c_j\phi_j(x)=0,\text{for $\forall x \in [a,b].$}$令$x=x_i,(i=1,…,N+1.)$ , 则有$c_i=0,i=1,…,N+1.$所以其线性无关.</p>
+<p>&emsp;&emsp;$\forall f \in U_h$, 考虑$g(x)=\sum_{j=1}^{N+1}f(x_i)\phi_j(x).$则有</p>
+<p>$g(x_i)=f(x_i),i=1,…,N+1.$且由于$f(x)$和$g(x)$在$[x_i,x_{i+1}],i=1,…,N.$是线性的, 所以</p>
+<p>&emsp;&emsp;$f(x)=g(x), [x_i,x_{i+1}], i=1,…,N.$</p>
+<p>即, $f(x)=g(x)=\sum_{i=1}^{N+1}f(x_i)\phi_i(x)$.</p>
+<p>证毕!</p>
+<h3 id="程序结构"><a href="#程序结构" class="headerlink" title="程序结构"></a>程序结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">	Possion_solver_1D--&gt;Pb/Tb矩阵生成</span><br><span class="line">	Possion_solver_1D--&gt;生成边界点</span><br><span class="line">	Possion_solver_1D--&gt;组装刚度矩阵</span><br><span class="line">	Possion_solver_1D--&gt;右端项组装器</span><br><span class="line">	Possion_solver_1D--&gt;处理边界条件</span><br><span class="line">	Possion_solver_1D--&gt;求解线性方程组</span><br><span class="line">	Possion_solver_1D--&gt;计算误差</span><br><span class="line">	Pb/Tb矩阵生成--&gt;由自由度决定</span><br><span class="line">	生成边界点--&gt;由问题决定</span><br><span class="line">	组装刚度矩阵--&gt;初始化刚度矩阵</span><br><span class="line">	组装刚度矩阵--&gt;循环单元</span><br><span class="line">	组装刚度矩阵--&gt;获得单元节点坐标</span><br><span class="line">	组装刚度矩阵--&gt;生成Gauss点和Gauss权系数</span><br><span class="line">	组装刚度矩阵--&gt;循环单元上的测试函数</span><br><span class="line">	组装刚度矩阵--&gt;循环单元上的试探函数</span><br><span class="line">	组装刚度矩阵--&gt;计算Gauss积分,组装进总刚度矩阵</span><br><span class="line">	右端项组装器--&gt;初始化右端向量</span><br><span class="line">	右端项组装器--&gt;循环每一个单元</span><br><span class="line">	右端项组装器--&gt;获得单元点坐标</span><br><span class="line">	右端项组装器--&gt;生成Gauss点和权</span><br><span class="line">	右端项组装器--&gt;循环局部基函数</span><br><span class="line">	右端项组装器--&gt;计算积分</span><br><span class="line">	右端项组装器--&gt;组装进右端向量</span><br><span class="line">	处理边界条件--&gt;先处理neumann边界条件</span><br><span class="line">	处理边界条件--&gt;再处理Dirichlet边界条件</span><br></pre></td></tr></table></figure>
+
+    </div>
+  </div>
+  
+    <div class="copy-right">
+      <div class="markdown-body">
+        <blockquote>
+        
+        
+          本文作者 : CHTLD <br>
+        
+        原文链接 : <a href>http://yoursite.com/2018/03/31/2018-03-29-two-point-boundary-problem/</a><br>
+        版权声明 : 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+        </blockquote>
+      </div>
+    </div>
+  
+  
+  
+
+  
+    <div id="reward">
+  
+    <p id="reward-meta">知识 & 情怀 | 二者兼得</p>
+  
+  <button id="reward-btn">
+    
+    <span>投食</span>
+  </button>
+  <div id="reward-qrcode">
+    
+      <div class="reward-qrcode--container">
+        <img class="qrcode-img" src="/images/wechat.png" alt="微信扫一扫, 向我投食">
+        <p class="qrcode-meta">微信扫一扫, 向我投食</p>
+      </div>
+    
+      <div class="reward-qrcode--container">
+        <img class="qrcode-img" src="/images/alipay.png" alt="支付宝扫一扫, 向我投食">
+        <p class="qrcode-meta">支付宝扫一扫, 向我投食</p>
+      </div>
+    
+  </div>
+
+</div>
+
+<script>
+  (() => {
+    let button = document.querySelector('#reward-btn'),
+      qrcode = document.querySelector('#reward-qrcode'),
+      display = false;
+    
+    button.addEventListener('click', () => {
+      qrcode.style.display = display ? 'none' : 'block'
+      display = !display
+    }, false)
+  })()
+</script>
+  
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+      <span>
+        
+          <i class="iconfont icon-06tags"></i>标签: 
+          
+          <span class="span--tag">
+            <a href="/tags/numerical-solution-of-partial-differential-equations/">
+              #numerical-solution-of-partial-differential-equations
+            </a>
+          </span>
+          
+          <span class="span--tag">
+            <a href="/tags/finite-element-methods/">
+              #finite-element-methods
+            </a>
+          </span>
+          
+        
+      </span>
+    </div>
+    <div class="article-meta pull-right">
+    </div>
+  </div>
+</div>
+
+
+  <aside id="sidebar">
+    <p id="sidebar-header"></p>
+    <ol id="sidebar-toc"></ol>
+  </aside>
+  <script async>setTimeout(generateToc, 10);</script>
+
+
+  <nav class="post-navigation">
+    
+    
+      <div class="nav-next">
+        下一篇:
+        <a href="/2018/04/01/2018-04-01-notes-on-introduction-to-practical-peridynamics-1/" target="_self">notes on introduction to practical peridynamics(1)</a>
+        <i class="iconfont icon-next"></i>
+      </div>
+    
+  </nav>
+
+  
+    <a href="#comment" class="comment-anchor"></a>
+<div class="comment-title"><i class="iconfont icon-footprint"></i> 留下足迹 <i class="iconfont icon-footprint"></i></div>
+<div id="vcomments"></div>
+
+<script defer>
+  if( true ) {
+    let path = getRealPath()
+    new Valine({
+      el: "#vcomments",
+      appId: "Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz",
+      appKey: "WaR7nrzhliHj9aVwdQzkdlGd",
+      notify: false,
+      verify: false,
+      avatar: "robohash",
+      placeholder: "正确填写邮箱, 才能及时收到回复哦♪(^∇^*)",
+      path
+    });
+  }
+</script>
+   
+
+  
+    <script defer>
+const valineAPI = (() => {
+  try {
+    AV.init("Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz", "WaR7nrzhliHj9aVwdQzkdlGd");
+  } catch(error) {}
+  const isExist = (identity) => {
+    identity = identity || getRealPath();
+    let query = new AV.Query('Timer');
+    return new Promise((resolve, reject) => {
+      query.equalTo("identity", identity);
+      query.find().then(results => {
+        resolve(results.length > 0);
+      }, error => reject(error));
+    })
+  }
+
+  const _get = (identity) => {
+    let query = null;
+    if(identity && identity instanceof Array){
+      let querys = [];
+      for(let i = 0; i < identity.length; ++i) {
+        querys[i] = new AV.Query('Timer');
+        querys[i].equalTo('identity', identity[i]);
+      }
+      query = AV.Query.or.apply(null ,querys);
+    } else {
+      identity = identity || getRealPath();
+      query = new AV.Query("Timer");
+      query.equalTo("identity", identity);
+    }
+
+    return new Promise((resolve, reject) => {
+      query.find()
+      .then(results => resolve(results))
+      .catch(error => reject(error))
+    })
+  }
+
+  const create = (identity) => {
+    identity = identity || getRealPath();
+    return new Promise((resolve, reject) => {
+      let Todo = AV.Object.extend('Timer');
+      let todo = new Todo();
+      todo.set("times", 1);
+      todo.set("identity", identity);
+      todo.save().then(res => resolve(true), error => reject(error));
+    })
+  }
+
+  const update = (identity) => {
+    identity = identity || getRealPath();
+    return new Promise((resolve, reject) => {
+      let query = new AV.Query('Timer');
+      query.equalTo("identity", identity);
+      query.find().then(todos => {
+        todos.forEach(todo => {
+          todo.set("times", todo.attributes.times + 1);
+        });
+        return AV.Object.saveAll(todos);
+      }).then(todos => resolve(true), error => reject(error));
+    })
+  }
+
+  return {
+    isExist,
+    _get,
+    update,
+    create
+  }
+})()
+
+const calcAndWriteTimes = () => {
+  let isPost = true;
+
+  let timerAllDOM = document.querySelectorAll(".article-timer");
+
+  if(isPost) {
+    let identity = timerAllDOM[0].getAttribute("data-identity");
+    valineAPI.isExist(identity)
+    .then(exist => {
+      if(exist) {
+        return valineAPI.update(identity);
+      }
+      return new Promise(resolve => resolve(true));
+    })
+    .then( succuess => valineAPI._get(identity))
+    .then( result => timerAllDOM[0].innerText = result[0].attributes.times)
+    .catch(error => console.log(error.message))
+    return ;
+  }
+
+  let timerDOMCache = {};
+
+  for(let timerDOM of timerAllDOM) {
+    let identity = timerDOM.getAttribute("data-identity");
+    if(timerDOMCache.hasOwnProperty(identity)){
+      timerDOMCache[identity].dom.push(timerDOM);
+    }else{
+      timerDOMCache[identity] = {
+        dom: [timerDOM],
+        times: undefined
+      };
+    }
+  }
+
+  let identities = Object.keys(timerDOMCache);
+  valineAPI._get(identities).then(results => {
+    for(let result of results) {
+      let {identity, times} = result.attributes;
+      timerDOMCache[identity].times = times;
+      timerDOMCache[identity].dom.map(item => item.innerText = times);
+    }
+    for(let identity of identities) {
+      if(timerDOMCache[identity].times){
+        continue;
+      }
+      timerDOMCache[identity].dom.map(item => item.innerText = 1);
+      valineAPI.create(identity);
+    }
+  }).catch(error => console.log(error.message))
+}
+
+if(true){
+  calcAndWriteTimes();
+}
+</script>
+   
+
+</div>
+
+
+      <footer>
+  <p class="site-info">
+    博客已萌萌哒运行<span id="time-to-now"></span><span class="my-face">(●'◡'●)ﾉ♥</span>
+    <br>
+    Theme - <a href="https://github.com/dongyuanxin/theme-bmw">BMW</a> | Made With 💗 | Powered by <a href="https://godbmw.com/">GodBMW</a>
+    <br>
+    
+  </p>
+</footer>
+
+
+
+<script>
+const timeToNowDOM = document.querySelector("#time-to-now");
+const startTimestamp = new Date(2018, 2, 1).getTime();
+
+const updateTimeStr = () => {
+  let offset = parseInt(
+      (new Date().getTime() - startTimestamp) / 1000,
+      10
+    ),
+    day = Math.floor(offset / 86400),
+    hour = Math.floor((offset % 86400) / 3600),
+    minute = Math.floor(((offset % 86400) % 3600) / 60),
+    second = Math.floor(((offset % 86400) % 3600) % 60);
+  timeToNowDOM.innerHTML =
+    day + "天" + hour + "小时" + minute + "分钟" + second + "秒";
+  setTimeout(updateTimeStr, 500);
+}
+
+setTimeout(updateTimeStr, 500);
+</script>
+
+
+      <div class="back-to-top hidden">
+  <span>
+    <i class="iconfont icon-60"></i><span></span>%
+  </span>
+</div>
+
+<script>
+const updateIconToTop = percent => {
+  let dom = document.querySelector(".back-to-top span span");
+  dom.innerText = percent;
+  if(percent < 1) {
+    document.querySelector(".back-to-top").className = "back-to-top hidden";
+  } else {
+    document.querySelector(".back-to-top").className = "back-to-top";
+  }
+}
+
+const handleScoll = () => {
+  let isRunning = false;
+  return () => {
+    if (isRunning) return;
+    isRunning = true;
+    window.requestAnimationFrame(timestamp => {
+      let scrollTop =
+          document.documentElement.scrollTop || document.body.scrollTop,
+        scrollHeight =
+          document.documentElement.scrollHeight ||
+          document.body.scrollHeight,
+        clientHeight =
+          document.documentElement.clientHeight ||
+          document.body.clientHeight;
+      isRunning = false;
+      if (scrollTop <= 1) {
+        updateIconToTop(0);
+        return;
+      }
+      if (scrollTop + clientHeight >= scrollHeight) {
+        updateIconToTop(100);
+      } else {
+        updateIconToTop(parseInt(
+          100 * scrollTop / (scrollHeight - clientHeight),
+          10
+        ));
+      }
+    });
+  };
+}
+
+const backToTop = () => {
+  let scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop,
+    delay = 10,
+    time = 200;
+  if (scrollTop <= 20) {
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    return;
+  }
+  let step = Math.ceil(scrollTop * delay / time);
+  let timer = setInterval(() => {
+    scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop;
+    if (scrollTop - step <= 0) {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      clearInterval(timer);
+    } else {
+      document.documentElement.scrollTop = scrollTop - step;
+      document.body.scrollTop = scrollTop - step;
+    }
+  }, delay);
+}
+
+document.addEventListener("scroll", handleScoll(), false);
+
+document.querySelector(".back-to-top").addEventListener("click", backToTop, false);
+
+</script>
+
+    </div>
+
+    
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script>
+  (() => {
+    const mathjaxConfig = {
+      showProcessingMessages: false, //关闭js加载过程信息
+      messageStyle: "none", //不显示信息
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [["$", "$"], ["\\(", "\\)"]], //行内公式选择符
+        displayMath: [["$$", "$$"], ["\\[", "\\]"]], //段内公式选择符
+        skipTags: ["script", "noscript", "style", "textarea", "pre", "code", "a"] //避开某些标签
+      },
+      "HTML-CSS": {
+        availableFonts: ["STIX", "TeX"], //可选字体
+        showMathMenu: false //关闭右击菜单显示
+      }
+    }
+
+    let mathjaxInterval = setInterval(() => {
+      if(!window.MathJax){
+        return;
+      }
+      window.MathJax.Hub.Config(mathjaxConfig)
+      window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById('app')])
+
+      clearInterval(mathjaxInterval)
+    }, 10)    
+  })()
+</script>
+    
+
+    <script src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script>
+<script async>
+  let fancyTimer = setInterval(function(){
+    if(!window.$){
+      return;
+    }
+    $(document).ready(function() {
+      $(".post img").each(function () {
+        if($(this).parent().get(0).tagName.toLowerCase() === "a") {
+          return;
+        }
+        // $(this).attr("data-fancybox", "gallery"); // if you add 'data-fancybox', img will display after showed
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "gallery");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      });
+      
+      clearInterval(fancyTimer);
+    });
+  }, 10);
+</script>
+
+    
+      
+         
+          <script src="/custom/script.js"  async  ></script>
+        
+      
+    
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+
+</html>
