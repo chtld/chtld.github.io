@@ -362,8 +362,8 @@
     let path = getRealPath()
     new Valine({
       el: "#vcomments",
-      appId: "Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz",
-      appKey: "WaR7nrzhliHj9aVwdQzkdlGd",
+      appId: "DPGaavNCNsWoskbfGpj29hnV-gzGzoHsz",
+      appKey: "xtcB9NSxEop43UqeoF8qMe0t",
       notify: false,
       verify: false,
       avatar: "robohash",
@@ -378,7 +378,7 @@
     <script defer>
 const valineAPI = (() => {
   try {
-    AV.init("Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz", "WaR7nrzhliHj9aVwdQzkdlGd");
+    AV.init("DPGaavNCNsWoskbfGpj29hnV-gzGzoHsz", "xtcB9NSxEop43UqeoF8qMe0t");
   } catch(error) {}
   const isExist = (identity) => {
     identity = identity || getRealPath();
@@ -683,22 +683,6 @@ document.querySelector(".back-to-top").addEventListener("click", backToTop, fals
         
       
     
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-</body>
+  </body>
 
 </html>

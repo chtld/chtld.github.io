@@ -224,8 +224,8 @@
   <div class="article-content">
     <div class="markdown-body">
       <p></p>
-<h4 id="启用开发者模式"><a href="#启用开发者模式" class="headerlink" title="启用开发者模式"></a>启用开发者模式</h4><p>打开 windows 设置，进入设置—&gt;更新和安全—&gt;针对开发人员，打开开发人员模式。<br><img src="2018-10-25-windows10开启linux子系统WSL/1.jpg" alt="示意图1"></p>
-<h4 id="添加系统功能"><a href="#添加系统功能" class="headerlink" title="添加系统功能"></a>添加系统功能</h4><p>打开控制面板—&gt;程序—&gt;启用和关闭windows功能，然后开启Hyper-V和适用于windows的linux子系统。<br><img src="2018-10-25-windows10开启linux子系统WSL/2.jpg" alt="示意图2"><br><img src="2018-10-25-windows10开启linux子系统WSL/3.jpg" alt="示意图3"></p>
+<h4 id="启用开发者模式"><a href="#启用开发者模式" class="headerlink" title="启用开发者模式"></a>启用开发者模式</h4><p>打开 windows 设置，进入设置—&gt;更新和安全—&gt;针对开发人员，打开开发人员模式。<br><img src="/2018/10/25/2018-10-25-windows10开启linux子系统WSL/1.jpg" alt="示意图1"></p>
+<h4 id="添加系统功能"><a href="#添加系统功能" class="headerlink" title="添加系统功能"></a>添加系统功能</h4><p>打开控制面板—&gt;程序—&gt;启用和关闭windows功能，然后开启Hyper-V和适用于windows的linux子系统。<br><img src="/2018/10/25/2018-10-25-windows10开启linux子系统WSL/2.jpg" alt="示意图2"><br><img src="/2018/10/25/2018-10-25-windows10开启linux子系统WSL/3.jpg" alt="示意图3"></p>
 <h4 id="开启cpu虚拟化支持"><a href="#开启cpu虚拟化支持" class="headerlink" title="开启cpu虚拟化支持"></a>开启cpu虚拟化支持</h4><p>重启电脑进入bios设置，开启cpu虚拟化支持。</p>
 <h4 id="安装ubuntu"><a href="#安装ubuntu" class="headerlink" title="安装ubuntu"></a>安装ubuntu</h4><p>使用windows+r键打开运行窗口，输入cmd，回车进入，输入bash，然后一路yes，设置用户名和密码，就安装成功了。也可直接进入windows商店，搜索ubuntu，然后选择自己喜欢的版本进行安装。</p>
     </div>
@@ -347,8 +347,8 @@
     let path = getRealPath()
     new Valine({
       el: "#vcomments",
-      appId: "Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz",
-      appKey: "WaR7nrzhliHj9aVwdQzkdlGd",
+      appId: "DPGaavNCNsWoskbfGpj29hnV-gzGzoHsz",
+      appKey: "xtcB9NSxEop43UqeoF8qMe0t",
       notify: false,
       verify: false,
       avatar: "robohash",
@@ -363,7 +363,7 @@
     <script defer>
 const valineAPI = (() => {
   try {
-    AV.init("Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz", "WaR7nrzhliHj9aVwdQzkdlGd");
+    AV.init("DPGaavNCNsWoskbfGpj29hnV-gzGzoHsz", "xtcB9NSxEop43UqeoF8qMe0t");
   } catch(error) {}
   const isExist = (identity) => {
     identity = identity || getRealPath();
@@ -668,22 +668,6 @@ document.querySelector(".back-to-top").addEventListener("click", backToTop, fals
         
       
     
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-</body>
+  </body>
 
 </html>
