@@ -370,7 +370,7 @@ u(0) = A\\
     
       <div class="nav-next">
         下一篇:
-        <a href="/2018/12/14/2019-04-14-应力的概念看弹簧/" target="_self">应力的概念看弹簧</a>
+        <a href="/2018/12/14/2019-03-29-连续介质力学/" target="_self">Continuum-Mechanics</a>
         <i class="iconfont icon-next"></i>
       </div>
     
@@ -707,6 +707,22 @@ document.querySelector(".back-to-top").addEventListener("click", backToTop, fals
         
       
     
-  </body>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
 
 </html>
