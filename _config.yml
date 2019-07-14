@@ -24,6 +24,8 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: hello world
 github_username:  chtld
 # Build settings
+disqus:
+  shortname: chtld
 markdown: kramdown
 plugins:
   - jekyll-feed

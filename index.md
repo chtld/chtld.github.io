@@ -1,6 +1,6 @@
 ---
 layout: home
-title: 大学
+title: Home
 ---
 
 大学之道，在明明德，在亲民，在止于至善。
