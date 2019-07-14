@@ -149,7 +149,7 @@ $$
 $$
 $(14)$中的双重积分表示通过$\mathcal{P}$的边界的线动量的非局部通量。这一项就类似于经典局部理论子区域上的接触力。方程$(14)$就是非局部平衡原理的一个例子，它的结构将在2.5节中讨论。
 #### 2.2 Principle of Virtual Work
-边界条件和初值条件可以整合到线动量守恒$(16)$中，通过形成变分问题[51].令 $\mathcal{B^{*}\subset B}$ 有非0体积. $\mathcal{B^{*}}$由运动被规定的粒子组成. 令 $w(\cdot, \cdot)$ 是物体 $\mathcal{B}$的一个运动，简化记号
+边界条件和初值条件可以整合到线动量守恒$(16)$中，通过形成变分问题[51].令 \\( \mathcal{B^{\*}\subset B} \\) 有非0体积. $\mathcal{B^{*}}$由运动被规定的粒子组成. 令 $w(\cdot, \cdot)$ 是物体 $\mathcal{B}$的一个运动，简化记号
 $$
 w = w(x,t), w' = w(x', t).
 $$
@@ -266,29 +266,34 @@ $$
 ### 5.Linear Theory
 #### 5.4 Equations of Motion and Equilibrium
 由于
+
 $$
-(\underline\mathbb{K}[x]\bullet\underline\mathbf{U}[x,t])<\xi> = \int_{\mathcal{H}}\underline\mathbb{K}[x]<\xi,\zeta>\underline\mathbf{U}[x,t]<\zeta>dV_{\zeta}
+(\underline{\mathbb{K}}[x]\bullet\underline{\mathbf{U}}[x,t])<\xi> = \int_{\mathcal{H}}\underline{\mathbb{K}}[x]<\xi,\zeta>\underline{\mathbf{U}}[x,t]<\zeta>dV_{\zeta}
 $$
+
 所以
+
 $$
 \begin{aligned}
-(\underline\mathbb{K}[x]\bullet\underline\mathbf{U}[x,t])<p-x> 
-&= \int_{\mathcal{H}}\underline\mathbb{K}[x]<p-x,\zeta>\underline\mathbf{U}[x,t]<\zeta>dV_{\zeta}\\
-&= \int_{\mathcal{B}}\underline\mathbb{K}[x]<p-x,q-x>\underline\mathbf{U}[x,t]<q-x>dV_{q}\\
-&= \int_{\mathcal{B}}\underline\mathbb{K}[x]<p-x,q-x>(u(q,t)-u(x,t))dV_q\\
+(\underline{\mathbb{K}}[x]\bullet\underline{\mathbf{U}}[x,t])<p-x> 
+&= \int_{\mathcal{H}}\underline{\mathbb{K}}[x]<p-x,\zeta>\underline{\mathbf{U}}[x,t]<\zeta>dV_{\zeta}\\
+&= \int_{\mathcal{B}}\underline{\mathbb{K}}[x]<p-x,q-x>\underline{\mathbf{U}}[x,t]<q-x>dV_{q}\\
+&= \int_{\mathcal{B}}\underline{\mathbb{K}}[x]<p-x,q-x>(u(q,t)-u(x,t))dV_q\\
 \end{aligned}
 $$
+
 即
+
 $$
 \begin{aligned}
-(\underline\mathbb{K}[p]\bullet\underline\mathbf{U}[p,t])<x-p> 
-&= \int_{\mathcal{B}}\underline\mathbb{K}[p]<x-p,\zeta>\underline\mathbf{U}[x,t]<\zeta>dV_{\zeta}\\
-&= \int_{\mathcal{B}}\underline\mathbb{K}[p]<x-p,q-p>\underline\mathbf{U}[x,t]<q-x>dV_{q}\\
-&= \int_{\mathcal{B}}\underline\mathbb{K}[p]<x-p,q-p>(u(x,t)-u(q,t)+u(q,t)-u(p,t))dV_q\\
-&= -\int_{\mathcal{B}}\underline\mathbb{K}[p]<x-p,q-p>(u(q,t)-u(x,t))dV_q\\
-&- \int_{\mathcal{B}}\underline\mathbb{K}[p]<x-p,q-p>(u(p,t)-u(q,t))dV_q\\
-&= -\int_{\mathcal{B}}\underline\mathbb{K}[p]<x-p,q-p>(u(q,t)-u(x,t))dV_q\\
-&+ \int_{\mathcal{B}}\underline\mathbb{K}[x]<p-x,q-p>(u(q,t)-u(x,t))dV_q\\
+(\underline{\mathbb{K}}[p]\bullet\underline{\mathbf{U}}[p,t])<x-p> 
+&= \int_{\mathcal{B}}\underline{\mathbb{K}}[p]<x-p,\zeta>\underline{\mathbf{U}}[x,t]<\zeta>dV_{\zeta}\\
+&= \int_{\mathcal{B}}\underline{\mathbb{K}}[p]<x-p,q-p>\underline{\mathbf{U}}[x,t]<q-x>dV_{q}\\
+&= \int_{\mathcal{B}}\underline{\mathbb{K}}[p]<x-p,q-p>(u(x,t)-u(q,t)+u(q,t)-u(p,t))dV_q\\
+&= -\int_{\mathcal{B}}\underline{\mathbb{K}}[p]<x-p,q-p>(u(q,t)-u(x,t))dV_q\\
+&- \int_{\mathcal{B}}\underline{\mathbb{K}}[p]<x-p,q-p>(u(p,t)-u(q,t))dV_q\\
+&= -\int_{\mathcal{B}}\underline{\mathbb{K}}[p]<x-p,q-p>(u(q,t)-u(x,t))dV_q\\
+&+ \int_{\mathcal{B}}\underline{\mathbb{K}}[x]<p-x,q-p>(u(q,t)-u(x,t))dV_q\\
 \end{aligned}
 $$
 ### 6.Relation to Other Theories
