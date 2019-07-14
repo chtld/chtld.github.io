@@ -1,0 +1,30 @@
+<footer class="site-footer h-card">
+  <data class="u-url" href="{{ "/" | relative_url }}"></data>
+
+  <div class="footer-wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">
+            {%- if site.author -%}
+              Copyright © 2018 - 2019 by {{ site.author | escape }}
+            {%- else -%}
+              {{ site.title | escape }}
+            {%- endif -%}
+            </li>
+        </ul>
+      </div>
+	  <div class="footer-col footer-col-2">
+		    {%- if site.version -%}
+            Powered by jekyll {{ site.version | escape}}
+			{%- endif -%}
+	  </div>
+	  <div class="footer-col footer-col-3">
+			using <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+	  </div>
+	</div>
+
+  </div>
+
+</footer>

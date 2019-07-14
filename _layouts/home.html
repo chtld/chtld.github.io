@@ -1,0 +1,29 @@
+---
+layout: default
+---
+
+<div class="home">
+	<div class="home-content">
+  {%- if page.title -%}
+    <h1 class="page-heading">{{ page.title }}</h1>
+  {%- endif -%}
+
+  {{ content }}
+  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
+	</div>
+	<div class="github">
+		<div><a href="https://github.com/chtld">Shangyuan Zhang(chtld)</a></div>
+		<div>
+			<div class="git-avatar"><img src="https://avatars0.githubusercontent.com/u/35769765?s=460&v=4" width="50" height="50"></div>
+			<div class="git-info">
+				<div><iframe src="https://ghbtns.com/github-btn.html?user=chtld&type=star&repo=Finite_Element_Method&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe></div>
+				<div><iframe src="https://ghbtns.com/github-btn.html?user=chtld&type=follow&count=true&v=2" frameborder="0" scrolling="0" width="170px" height="20px"></iframe></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="zhihu">
+		<a href="https://www.zhihu.com/people/shen-yuan-77-42/activities">甚远</a>
+	</div>
+</div>
+

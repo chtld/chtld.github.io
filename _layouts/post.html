@@ -1,0 +1,41 @@
+---
+layout: default
+---
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+        {%- assign date_format = site.date_format | default: "%b %-d, %Y" -%}
+        {{ page.date | date: date_format }}
+      </time>
+      {%- if page.author -%}
+        • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">{{ page.author }}</span></span>
+      {%- endif -%}</p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    {{ content }}
+  </div>
+  {% if page.previous or page.next%}
+  <nav>
+	<ul>
+	<li class="previous">
+	{% if page.previous %}
+		<a rel="prev" href="{{ page.previous.url | prepend: site.baseurl }}" title="{{page.previous.title | escape }}">&laquo; 前一篇: {{page.previous.title}}</a>
+	{% endif %}
+	</li>
+	<li class="next">
+	{% if page.next %}
+		<a rel="next" href="{{ page.next.url | prepend: site.baseurl }}" title="{{page.next.title | escape}}">后一篇: {{page.next.title}}&raquo;</a>
+	{% endif %}
+	</li>
+	</ul>
+  </nav>
+  {% endif %}
+  {%- if site.disqus.shortname -%}
+    {%- include disqus_comments.html -%}
+  {%- endif -%}
+
+  <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+</article>
