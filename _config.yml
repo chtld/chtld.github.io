@@ -24,6 +24,14 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: hello world
 github_username:  chtld
 # Build settings
+# header 栏设置
+urls:
+    - text: Posts
+      url: /posts/
+    - text: About-Me
+      url: /about-me/
+    - text: About-Site
+      url : /about-site/
 disqus:
   shortname: chtld
 markdown: kramdown
