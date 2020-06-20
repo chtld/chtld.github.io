@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Elasiticity-Mechanics
-date: 2018-12-14
+date: 2020-06-20
 categories: peridynamic
 mathjax: true
 tags: [continuum mechanics]
