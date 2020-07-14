@@ -301,23 +301,23 @@ float: left;
 .zhihu {
 	border-style:none;
 	box-shadow: 2px 2px 5px #bbb;
-	margin:0;
+	margin:0px 0px 100px 0px;
 	padding:0;
 	float:right;
 	width: -webkit-calc(20% - (#{$spacing-unit} / 2));
     width:         calc(20% - (#{$spacing-unit} / 2));
 }
 .git-info {
-	width: -webkit-calc(70% - (#{$spacing-unit} / 2));
-    width:         calc(70% - (#{$spacing-unit} / 2));
+	width: -webkit-calc(99% - (#{$spacing-unit} / 2));
+    width:         calc(99% - (#{$spacing-unit} / 2));
 	float: right;
 	margin: 0;
 	padding: 0;
 }
 
 .git-avatar {
-	width: -webkit-calc(30% - (#{$spacing-unit} / 2));
-    width:         calc(30% - (#{$spacing-unit} / 2));
+	width: -webkit-calc(99% - (#{$spacing-unit} / 2));
+    width:         calc(99% - (#{$spacing-unit} / 2));
 	margin: 0 0 0 5px;
 	padding: 0;
 	float: left;
